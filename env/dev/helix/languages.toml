@@ -16,7 +16,7 @@ args = ["lsp", "stdio"]
 
 [[language]]
 name = "toml"
-language-servers = ["scls, taplo"]
+language-servers = ["scls", "taplo"]
 formatter = { command = "taplo", args = ["fmt", "-"] }
 auto-format = true
 
@@ -30,9 +30,13 @@ language-servers = ["scls", "bash-language-server"]
 formatter = { command = "shfmt" }
 auto-format = true
 
+[language-server.vscode-markdown-language-server]
+command = "vscode-markdown-language-server"
+args = ["--stdio"]
+
 [[language]]
 name = "markdown"
-language-servers = ["scls"]
+language-servers = ["scls", "vscode-markdown-language-server"]
 formatter = { command = 'prettier', args = ["--stdin-filepath", "file.md"] }
 auto-format = true
 
@@ -60,4 +64,34 @@ args = ["--stdio"]
 name = "json"
 language-servers = ["scls", "vscode-json-language-server"]
 formatter = { command = "prettier", args = ["--stdin-filepath", "file.json"] }
+auto-format = true
+
+[[language]]
+name = "html"
+language-servers = ["scls", "vscode-html-language-server"]
+formatter = { command = 'prettier', args = ["--stdin-filepath", "file.html"] }
+auto-format = true
+
+[[language]]
+name = "css"
+language-servers = ["scls", "vscode-css-language-server"]
+formatter = { command = 'prettier', args = ["--stdin-filepath", "file.css"] }
+auto-format = true
+
+[language-server.typescript-language-server]
+command = "typescript-language-server"
+args = ["--stdio"]
+
+[[language]]
+name = "typescript"
+file-types = ["ts", "tsx"]
+language-servers = ["scls", "typescript-language-server"]
+formatter = { command = "prettier", args = ["--stdin-filepath", "file.ts"] }
+auto-format = true
+
+[[language]]
+name = "javascript"
+file-types = ["js", "jsx", "mjs", "cjs"]
+language-servers = ["scls", "typescript-language-server"]
+formatter = { command = "prettier", args = ["--stdin-filepath", "file.js"] }
 auto-format = true

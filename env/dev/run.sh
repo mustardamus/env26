@@ -63,6 +63,7 @@ if [ "$ACTION" = "dev" ]; then
 		run
 	fi
 
+	podman exec "$CONTAINER_NAME" fish -c "zellij delete-session $CONTAINER_NAME || true"
 	podman exec -it "$CONTAINER_NAME" fish -c "zellij attach -c $CONTAINER_NAME"
 	stop
 	clear

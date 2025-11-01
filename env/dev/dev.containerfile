@@ -45,18 +45,20 @@ RUN mise use --global zellij
 
 RUN mise use --global \
     helix \
+    shfmt \
+    taplo \
     node@lts \
-    npm:vscode-langservers-extracted 
-#     shfmt \
-#     taplo \
-#     node@lts \
-#     npm:bash-language-server \
-#     npm:prettier \
-#     npm:dockerfile-language-server-nodejs \
-#     go \
-#     go:github.com/reteps/dockerfmt@latest \
-#     rust
-# RUN fish -c "cargo install --locked --git https://github.com/estin/simple-completion-language-server.git"
+    npm:bash-language-server \
+    npm:prettier \
+    npm:dockerfile-language-server-nodejs \
+    npm:vscode-langservers-extracted \
+    npm:biome \
+    npm:typescript \
+    npm:typescript-language-server \
+    go \
+    go:github.com/reteps/dockerfmt@latest \
+    rust
+RUN fish -c "cargo install --locked --git https://github.com/estin/simple-completion-language-server.git"
 
 RUN mise use --global \
     ripgrep \
@@ -66,5 +68,7 @@ RUN mise use --global \
     node@lts \
     npm:opencode-ai \
     npm:chrome-devtools-mcp
+
+RUN mise use --global bun
 
 CMD ["tail", "-f", "/dev/null"]
