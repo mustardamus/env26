@@ -19,6 +19,7 @@ RUN apt-get update \
         zip \
         fish \
         tzdata \
+        chromium \
     && rm -rf /var/lib/apt/lists/*
 
 RUN ln -snf /usr/share/zoneinfo/$TIMEZONE /etc/localtime \
@@ -40,6 +41,8 @@ RUN curl https://mise.run | sh \
     && echo "mise activate fish | source" >.config/fish/conf.d/mise.fish \
     && mise completion fish >>.config/fish/conf.d/mise.fish
 
+RUN mise use --global zellij
+
 RUN mise use --global \
     helix
 #     shfmt \
@@ -53,6 +56,13 @@ RUN mise use --global \
 #     rust
 # RUN fish -c "cargo install --locked --git https://github.com/estin/simple-completion-language-server.git"
 
-RUN mise use --global zellij
+RUN mise use --global \
+    ripgrep \
+    fd \
+    jq \
+    yq \
+    node@lts \
+    npm:opencode-ai \
+    npm:chrome-devtools-mcp
 
 CMD ["tail", "-f", "/dev/null"]
