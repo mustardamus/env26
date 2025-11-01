@@ -17,6 +17,7 @@ RUN apt-get update && \
         git \
         gnupg2 \
         zip \
+        fish \
         tzdata && \
     rm -rf /var/lib/apt/lists/*
 
@@ -28,5 +29,11 @@ RUN useradd -m -G sudo -s /bin/bash $USERNAME && \
 
 USER $USERNAME
 WORKDIR $WORKDIR
+
+COPY --chown=$USERNAME:$USERNAME env/dev/fish/config.fish .config/fish/config.fish
+
+RUN fish -c "curl -sL https://raw.githubusercontent.com/jorgebucaran/fisher/main/functions/fisher.fish | source && fisher install jorgebucaran/fisher" && \
+    fish -c "fisher install jorgebucaran/hydro" && \
+    fish -c "fisher install laughedelic/pisces"
 
 CMD ["tail", "-f", "/dev/null"]
