@@ -36,6 +36,7 @@
 | TOML       | [taplo](https://taplo.tamasfe.dev/)                                                        |
 | Bash       | [bash-language-server](https://github.com/bash-lsp/bash-language-server)                   |
 | Dockerfile | [dockerfile-language-server](https://github.com/rcjsuen/dockerfile-language-server-nodejs) |
+| JSON       | [vscode-json-language-server](https://github.com/microsoft/vscode-languageserver-node)     |
 
 #### Formatters
 
@@ -46,3 +47,4 @@
 | TOML       | [taplo](https://taplo.tamasfe.dev/)              |
 | Bash       | [shfmt](https://github.com/mvdan/sh)             |
 | Dockerfile | [dockerfmt](https://github.com/reteps/dockerfmt) |
+| JSON       | [prettier](https://prettier.io/)                 |

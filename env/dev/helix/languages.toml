@@ -51,3 +51,13 @@ file-types = [
   { glob = "*.containerfile" },
   { glob = "*.dockerfile" },
 ]
+
+[language-server.vscode-json-language-server]
+command = "vscode-json-language-server"
+args = ["--stdio"]
+
+[[language]]
+name = "json"
+language-servers = ["scls", "vscode-json-language-server"]
+formatter = { command = "prettier", args = ["--stdin-filepath", "file.json"] }
+auto-format = true

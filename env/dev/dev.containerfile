@@ -44,7 +44,9 @@ RUN curl https://mise.run | sh \
 RUN mise use --global zellij
 
 RUN mise use --global \
-    helix
+    helix \
+    node@lts \
+    npm:vscode-langservers-extracted 
 #     shfmt \
 #     taplo \
 #     node@lts \
