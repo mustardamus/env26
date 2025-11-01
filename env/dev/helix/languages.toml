@@ -107,7 +107,7 @@ scope = "source.astro"
 injection-regex = "astro"
 file-types = ["astro"]
 # NOTE: snippets work better when scls is second lsp, not first
-language-servers = ["astro-ls", "scls"]
+language-servers = ["astro-ls", "scls", "tailwindcss-ls"]
 formatter = { command = "prettier", args = [
   "--stdin-filepath",
   "file.astro",
@@ -115,3 +115,20 @@ formatter = { command = "prettier", args = [
   "prettier-plugin-astro",
 ] }
 auto-format = true
+
+[language-server.tailwindcss-ls]
+command = "tailwindcss-language-server"
+args = ["--stdio"]
+
+[language-server.tailwindcss-ls.config]
+tailwindCSS.experimental.configFile = "./src/assets/css/global.css"
+tailwindCSS.includeLanguages = { astro = "html", typescript = "javascript", tsx = "javascript" }
+tailwindCSS.emmetCompletions = true
+tailwindCSS.classAttributes = ["class", "className", "class:list", "classList"]
+tailwindCSS.validate = true
+tailwindCSS.lint.cssConflict = "warning"
+tailwindCSS.lint.invalidApply = "error"
+tailwindCSS.lint.invalidScreen = "error"
+tailwindCSS.lint.invalidTailwindDirective = "error"
+tailwindCSS.lint.invalidVariant = "error"
+tailwindCSS.lint.recommendedVariantOrder = "warning"
