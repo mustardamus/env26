@@ -36,4 +36,10 @@ RUN fish -c "curl -sL https://raw.githubusercontent.com/jorgebucaran/fisher/main
     fish -c "fisher install jorgebucaran/hydro" && \
     fish -c "fisher install laughedelic/pisces"
 
+RUN curl https://mise.run | sh && \
+    mise use --global usage && \
+    mkdir -p .config/fish/conf.d && \
+    echo "mise activate fish | source" > .config/fish/conf.d/mise.fish && \
+    mise completion fish >> .config/fish/conf.d/mise.fish
+
 CMD ["tail", "-f", "/dev/null"]
