@@ -95,3 +95,23 @@ file-types = ["js", "jsx", "mjs", "cjs"]
 language-servers = ["scls", "typescript-language-server"]
 formatter = { command = "prettier", args = ["--stdin-filepath", "file.js"] }
 auto-format = true
+
+[language-server.astro-ls]
+command = "astro-ls"
+args = ["--stdio"]
+config = { typescript = { tsdk = "/home/dev/.local/share/mise/installs/npm-typescript/latest/lib/node_modules/typescript/lib" } }
+
+[[language]]
+name = "astro"
+scope = "source.astro"
+injection-regex = "astro"
+file-types = ["astro"]
+# NOTE: snippets work better when scls is second lsp, not first
+language-servers = ["astro-ls", "scls"]
+formatter = { command = "prettier", args = [
+  "--stdin-filepath",
+  "file.astro",
+  "--plugin",
+  "prettier-plugin-astro",
+] }
+auto-format = true

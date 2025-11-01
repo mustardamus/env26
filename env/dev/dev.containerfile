@@ -55,6 +55,8 @@ RUN mise use --global \
     npm:biome \
     npm:typescript \
     npm:typescript-language-server \
+    npm:@astrojs/language-server \
+    npm:prettier-plugin-astro \
     go \
     go:github.com/reteps/dockerfmt@latest \
     rust
