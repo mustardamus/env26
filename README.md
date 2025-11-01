@@ -26,3 +26,12 @@
 ### Editor with LSPs
 
 - helix
+
+#### Language Servers
+
+[helix/languages.toml](env/dev/helix/languages.toml)
+
+| Language | LSP                                                                      |
+| -------- | ------------------------------------------------------------------------ |
+| TOML     | [taplo](https://taplo.tamasfe.dev/)                                      |
+| Bash     | [bash-language-server](https://github.com/bash-lsp/bash-language-server) |

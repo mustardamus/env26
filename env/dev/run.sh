@@ -58,7 +58,7 @@ if [ "$ACTION" = "dev" ]; then
 		run
 	fi
 
-	podman exec -it "$CONTAINER_NAME" bash -c "echo $ENV_NAME && bash"
+	podman exec -it "$CONTAINER_NAME" bash -c "echo $ENV_NAME && fish"
 	stop
 fi
 

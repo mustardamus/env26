@@ -42,4 +42,13 @@ RUN curl https://mise.run | sh && \
     echo "mise activate fish | source" > .config/fish/conf.d/mise.fish && \
     mise completion fish >> .config/fish/conf.d/mise.fish
 
+RUN mise use --global \
+    helix \
+    shfmt \
+    taplo \
+    node@lts \
+    npm:bash-language-server
+COPY --chown=$USERNAME:$USERNAME env/dev/helix/config.toml .config/helix/config.toml
+COPY --chown=$USERNAME:$USERNAME env/dev/helix/languages.toml .config/helix/languages.toml
+
 CMD ["tail", "-f", "/dev/null"]
