@@ -10,6 +10,7 @@ APP_NAME="$(basename "$APP_DIR")"
 CONTAINER_NAME="$APP_NAME-$ENV_NAME"
 CONTAINER_HOME_DIR="/home/dev"
 CONTAINER_APP_DIR="$CONTAINER_HOME_DIR/app"
+CONTAINER_CONFIG_DIR="$CONTAINER_HOME_DIR/.config"
 VOLUME_NAME="$CONTAINER_NAME-home"
 IMAGE_NAME="$CONTAINER_NAME:latest"
 
@@ -34,6 +35,9 @@ run() {
 		-w "$CONTAINER_APP_DIR" \
 		-v "$APP_DIR:$CONTAINER_APP_DIR:Z" \
 		-v "$VOLUME_NAME:$CONTAINER_HOME_DIR:Z" \
+		-v "$ENV_DIR/fish/config.fish:$CONTAINER_CONFIG_DIR/fish/config.fish:Z" \
+		-v "$ENV_DIR/helix/config.toml:$CONTAINER_CONFIG_DIR/helix/config.toml:Z" \
+		-v "$ENV_DIR/helix/languages.toml:$CONTAINER_CONFIG_DIR/helix/languages.toml:Z" \
 		"$IMAGE_NAME"
 }
 

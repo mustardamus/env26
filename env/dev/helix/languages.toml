@@ -22,3 +22,19 @@ auto-format = true
 name = "markdown"
 formatter = { command = 'prettier', args = ["--stdin-filepath", "file.md"] }
 auto-format = true
+
+[language-server.dockerfile-language-server]
+command = "docker-langserver"
+args = ["--stdio"]
+
+[[language]]
+name = "dockerfile"
+language-servers = ["dockerfile-language-server"]
+formatter = { command = "dockerfmt" }
+auto-format = true
+file-types = [
+  "Dockerfile",
+  "Containerfile",
+  { glob = "*.containerfile" },
+  { glob = "*.dockerfile" },
+]

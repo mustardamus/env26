@@ -31,16 +31,18 @@
 
 [helix/languages.toml](env/dev/helix/languages.toml)
 
-| Language | LSP                                                                      |
-| -------- | ------------------------------------------------------------------------ |
-| TOML     | [taplo](https://taplo.tamasfe.dev/)                                      |
-| Bash     | [bash-language-server](https://github.com/bash-lsp/bash-language-server) |
+| Language   | LSP                                                                                        |
+| ---------- | ------------------------------------------------------------------------------------------ |
+| TOML       | [taplo](https://taplo.tamasfe.dev/)                                                        |
+| Bash       | [bash-language-server](https://github.com/bash-lsp/bash-language-server)                   |
+| Dockerfile | [dockerfile-language-server](https://github.com/rcjsuen/dockerfile-language-server-nodejs) |
 
 #### Formatters
 
 [helix/languages.toml](env/dev/helix/languages.toml)
 
-| Language | Formatter                                   |
-| -------- | ------------------------------------------- |
-| TOML     | [taplo](https://taplo.tamasfe.dev/)         |
-| Bash     | [shfmt](https://github.com/mvdan/sh)        |
+| Language   | Formatter                                        |
+| ---------- | ------------------------------------------------ |
+| TOML       | [taplo](https://taplo.tamasfe.dev/)              |
+| Bash       | [shfmt](https://github.com/mvdan/sh)             |
+| Dockerfile | [dockerfmt](https://github.com/reteps/dockerfmt) |
