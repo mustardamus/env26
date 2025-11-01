@@ -47,7 +47,8 @@ RUN mise use --global \
     shfmt \
     taplo \
     node@lts \
-    npm:bash-language-server
+    npm:bash-language-server \
+    npm:prettier
 COPY --chown=$USERNAME:$USERNAME env/dev/helix/config.toml .config/helix/config.toml
 COPY --chown=$USERNAME:$USERNAME env/dev/helix/languages.toml .config/helix/languages.toml
 

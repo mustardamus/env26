@@ -35,3 +35,12 @@
 | -------- | ------------------------------------------------------------------------ |
 | TOML     | [taplo](https://taplo.tamasfe.dev/)                                      |
 | Bash     | [bash-language-server](https://github.com/bash-lsp/bash-language-server) |
+
+#### Formatters
+
+[helix/languages.toml](env/dev/helix/languages.toml)
+
+| Language | Formatter                                   |
+| -------- | ------------------------------------------- |
+| TOML     | [taplo](https://taplo.tamasfe.dev/)         |
+| Bash     | [shfmt](https://github.com/mvdan/sh)        |

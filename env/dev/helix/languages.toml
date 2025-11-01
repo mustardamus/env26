@@ -17,3 +17,8 @@ name = "bash"
 language-servers = ["bash-language-server"]
 formatter = { command = "shfmt" }
 auto-format = true
+
+[[language]]
+name = "markdown"
+formatter = { command = 'prettier', args = ["--stdin-filepath", "file.md"] }
+auto-format = true
