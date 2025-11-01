@@ -36,14 +36,14 @@ run() {
 		-v "$APP_DIR:$CONTAINER_APP_DIR:Z" \
 		-v "$VOLUME_NAME:$CONTAINER_HOME_DIR:Z" \
 		-v "$ENV_DIR/fish/config.fish:$CONTAINER_CONFIG_DIR/fish/config.fish:Z" \
-		-v "$ENV_DIR/helix/config.toml:$CONTAINER_CONFIG_DIR/helix/config.toml:Z" \
-		-v "$ENV_DIR/helix/languages.toml:$CONTAINER_CONFIG_DIR/helix/languages.toml:Z" \
+		-v "$ENV_DIR/helix:$CONTAINER_CONFIG_DIR/helix:Z" \
 		-v "$ENV_DIR/snippets:$CONTAINER_HOME_DIR/.scls/snippets" \
+		-v "$ENV_DIR/zellij:$CONTAINER_CONFIG_DIR/zellij:Z" \
 		"$IMAGE_NAME"
 }
 
 stop() {
-	podman stop "$CONTAINER_NAME"
+	podman stop -t 1 "$CONTAINER_NAME"
 }
 
 is_running() {
@@ -63,8 +63,9 @@ if [ "$ACTION" = "dev" ]; then
 		run
 	fi
 
-	podman exec -it "$CONTAINER_NAME" bash -c "echo $ENV_NAME && fish"
+	podman exec -it "$CONTAINER_NAME" fish -c "zellij attach -c $CONTAINER_NAME"
 	stop
+	clear
 fi
 
 if [ "$ACTION" = "reset" ]; then

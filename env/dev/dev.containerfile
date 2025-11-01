@@ -41,16 +41,18 @@ RUN curl https://mise.run | sh \
     && mise completion fish >>.config/fish/conf.d/mise.fish
 
 RUN mise use --global \
-    helix \
-    shfmt \
-    taplo \
-    node@lts \
-    npm:bash-language-server \
-    npm:prettier \
-    npm:dockerfile-language-server-nodejs \
-    go \
-    go:github.com/reteps/dockerfmt@latest \
-    rust
-RUN fish -c "cargo install --locked --git https://github.com/estin/simple-completion-language-server.git"
+    helix
+#     shfmt \
+#     taplo \
+#     node@lts \
+#     npm:bash-language-server \
+#     npm:prettier \
+#     npm:dockerfile-language-server-nodejs \
+#     go \
+#     go:github.com/reteps/dockerfmt@latest \
+#     rust
+# RUN fish -c "cargo install --locked --git https://github.com/estin/simple-completion-language-server.git"
+
+RUN mise use --global zellij
 
 CMD ["tail", "-f", "/dev/null"]
