@@ -1,0 +1,17 @@
+[[snippets]]
+prefix = "ll"
+scope = ["typescript"]
+body = 'console.log($1)'
+description = "console.log()"
+
+[[snippets]]
+prefix = "le"
+scope = ["typescript"]
+body = 'console.error($1)'
+description = "console.error()"
+
+[[snippets]]
+prefix = "lw"
+scope = ["typescript"]
+body = 'console.warn($1)'
+description = "console.warn()"

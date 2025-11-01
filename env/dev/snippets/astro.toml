@@ -1,0 +1,18 @@
+[[snippets]]
+prefix = "ll"
+scope = ["astro"]
+body = 'console.log($1)'
+description = "console.log()"
+
+[[snippets]]
+prefix = "le"
+scope = ["astro"]
+body = 'console.error($1)'
+description = "console.error()"
+
+[[snippets]]
+prefix = "lw"
+scope = ["astro"]
+body = 'console.warn($1)'
+description = "console.warn()"
+

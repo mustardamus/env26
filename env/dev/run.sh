@@ -38,6 +38,7 @@ run() {
 		-v "$ENV_DIR/fish/config.fish:$CONTAINER_CONFIG_DIR/fish/config.fish:Z" \
 		-v "$ENV_DIR/helix/config.toml:$CONTAINER_CONFIG_DIR/helix/config.toml:Z" \
 		-v "$ENV_DIR/helix/languages.toml:$CONTAINER_CONFIG_DIR/helix/languages.toml:Z" \
+		-v "$ENV_DIR/snippets:$CONTAINER_HOME_DIR/.scls/snippets" \
 		"$IMAGE_NAME"
 }
 
