@@ -49,6 +49,8 @@ RUN mise use --global \
     npm:prettier \
     npm:dockerfile-language-server-nodejs \
     go \
-    go:github.com/reteps/dockerfmt@latest
+    go:github.com/reteps/dockerfmt@latest \
+    rust
+RUN fish -c "cargo install --locked --git https://github.com/estin/simple-completion-language-server.git"
 
 CMD ["tail", "-f", "/dev/null"]
