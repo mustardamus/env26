@@ -1,4 +1,7 @@
 layout {
+    // NOTE: default tab layout does now work with hide_floating_panes=true
+    //       so have the scratch terminal on each tab seperately
+
     tab name="1:Edit" hide_floating_panes=true {
         pane command="hx" {
             args "."
@@ -19,19 +22,67 @@ layout {
 
     tab name="2:Assist" hide_floating_panes=true {
         pane command="opencode"
+        pane size=1 borderless=true {
+            plugin location="tab-bar"
+        }
+        floating_panes {
+            pane name="Toggle: Alt+Space" {
+                command "fish"
+                x "50%"
+                y "0%"
+                width "50%"
+                height "100%"
+            }
+        }
     }
 
     tab name="3:Git" hide_floating_panes=true {
         pane command="lazygit"
+        pane size=1 borderless=true {
+            plugin location="tab-bar"
+        }
+        floating_panes {
+            pane name="Toggle: Alt+Space" {
+                command "fish"
+                x "50%"
+                y "0%"
+                width "50%"
+                height "100%"
+            }
+        }
     }
     
     tab name="4:$" hide_floating_panes=true {
         pane command="fish"
+        pane size=1 borderless=true {
+            plugin location="tab-bar"
+        }
+        floating_panes {
+            pane name="Toggle: Alt+Space" {
+                command "fish"
+                x "50%"
+                y "0%"
+                width "50%"
+                height "100%"
+            }
+        }
     }
 
     tab name="5:Test|Unit" hide_floating_panes=true {
         pane command="bun" {
             args "run" "test:unit:watch"
+        }
+        pane size=1 borderless=true {
+            plugin location="tab-bar"
+        }
+        floating_panes {
+            pane name="Toggle: Alt+Space" {
+                command "fish"
+                x "50%"
+                y "0%"
+                width "50%"
+                height "100%"
+            }
         }
     }
 
@@ -39,23 +90,83 @@ layout {
         pane command="bun" {
             args "run" "test:e2e:watch"
         }
+        pane size=1 borderless=true {
+            plugin location="tab-bar"
+        }
+        floating_panes {
+            pane name="Toggle: Alt+Space" {
+                command "fish"
+                x "50%"
+                y "0%"
+                width "50%"
+                height "100%"
+            }
+        }
     }
 
     tab name="7:$" hide_floating_panes=true {
         pane command="fish"
+        pane size=1 borderless=true {
+            plugin location="tab-bar"
+        }
+        floating_panes {
+            pane name="Toggle: Alt+Space" {
+                command "fish"
+                x "50%"
+                y "0%"
+                width "50%"
+                height "100%"
+            }
+        }
     }
 
     tab name="8:$" hide_floating_panes=true {
         pane command="fish"
+        pane size=1 borderless=true {
+            plugin location="tab-bar"
+        }
+        floating_panes {
+            pane name="Toggle: Alt+Space" {
+                command "fish"
+                x "50%"
+                y "0%"
+                width "50%"
+                height "100%"
+            }
+        }
     }
 
     tab name="9:Mailhog" hide_floating_panes=true {
         pane command="mailhog"
+        pane size=1 borderless=true {
+            plugin location="tab-bar"
+        }
+        floating_panes {
+            pane name="Toggle: Alt+Space" {
+                command "fish"
+                x "50%"
+                y "0%"
+                width "50%"
+                height "100%"
+            }
+        }
     }
 
     tab name="10:Astro" hide_floating_panes=true {
         pane command="bun" {
             args "run" "dev"
+        }
+        pane size=1 borderless=true {
+            plugin location="tab-bar"
+        }
+        floating_panes {
+            pane name="Toggle: Alt+Space" {
+                command "fish"
+                x "50%"
+                y "0%"
+                width "50%"
+                height "100%"
+            }
         }
     }
 
@@ -63,11 +174,35 @@ layout {
         pane command="bash" {
             args "-c" "pocketbase serve --dir=$HOME/app/pb_data --hooksDir=$HOME/app/pb_hooks --migrationsDir=$HOME/app/pb_migrations --dev=true"
         }
+        pane size=1 borderless=true {
+            plugin location="tab-bar"
+        }
+        floating_panes {
+            pane name="Toggle: Alt+Space" {
+                command "fish"
+                x "50%"
+                y "0%"
+                width "50%"
+                height "100%"
+            }
+        }
     }
 
     tab name="12:Caddy" hide_floating_panes=true {
         pane command="bash" {
-            args "-c" "caddy run -c $HOME/app/env/development/Caddyfile"
+            args "-c" "caddy run -c $HOME/app/env/dev/Caddyfile"
+        }
+        pane size=1 borderless=true {
+            plugin location="tab-bar"
+        }
+        floating_panes {
+            pane name="Toggle: Alt+Space" {
+                command "fish"
+                x "50%"
+                y "0%"
+                width "50%"
+                height "100%"
+            }
         }
     }
 }

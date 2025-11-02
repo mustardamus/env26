@@ -31,7 +31,7 @@ run() {
 		--name "$CONTAINER_NAME" \
 		-d --rm --replace \
 		--userns keep-id \
-		-p 8091:8080 \
+		-p 8090:8080 \
 		-w "$CONTAINER_APP_DIR" \
 		-v "$APP_DIR:$CONTAINER_APP_DIR:Z" \
 		-v "$VOLUME_NAME:$CONTAINER_HOME_DIR:Z" \
