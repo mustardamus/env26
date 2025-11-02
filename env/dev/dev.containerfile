@@ -58,7 +58,6 @@ RUN mise use --global \
     npm:dockerfile-language-server-nodejs \
     npm:vscode-langservers-extracted \
     npm:yaml-language-server \
-    npm:biome \
     npm:typescript \
     npm:typescript-language-server \
     npm:@astrojs/language-server \
@@ -82,6 +81,10 @@ RUN mise use --global \
     bun \
     lazygit \
     caddy
+
+RUN mise use --global \
+    shellcheck \
+    markdownlint-cli2
 
 RUN mise use --global go \
     && mise install go \

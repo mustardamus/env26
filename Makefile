@@ -1,4 +1,4 @@
-.PHONY: default help dev_build dev_reset dev format format_all prod_build prod deploy
+.PHONY: default help dev_build dev_reset dev format format_all lint lint_all prod_build prod deploy
 .DEFAULT_GOAL := dev
 
 help: ## Show this help screen
@@ -19,3 +19,9 @@ format: ## Format changed and uncommitted files
 
 format_all: ## Format all files in the project
 	@bash ./env/dev/format.sh all
+
+lint: ## Lint changed and uncommitted files
+	@bash ./env/dev/lint.sh
+
+lint_all: ## Lint all files in the project
+	@bash ./env/dev/lint.sh all

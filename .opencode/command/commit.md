@@ -4,7 +4,8 @@ model: anthropic/claude-opus-4-1
 temperature: 0.1
 ---
 
-First run the format command `make format` successfully.
+First run the lint command `make lint` successfully, then run the format
+command `make format` successfully.
 
 Then commit the code changes following these rules:
 

@@ -63,13 +63,13 @@ should_exclude() {
 		case "$pattern" in
 		\**)
 			# Glob pattern like **/*.log
-			if [[ "$file" == $pattern ]]; then
+			if [[ "$file" == "$pattern" ]]; then
 				return 0
 			fi
 			;;
 		*\*)
 			# Pattern with wildcard like *.log or temp*
-			if [[ "$file" == $pattern || "$file" == */"$pattern" ]]; then
+			if [[ "$file" == "$pattern" || "$file" == */"$pattern" ]]; then
 				return 0
 			fi
 			;;

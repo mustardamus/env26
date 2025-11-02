@@ -2,30 +2,39 @@
 
 ## Requirements
 
-- [Podman](https://podman.io/) with [rootless mode](https://docs.podman.io/en/latest/markdown/podman.1.html#rootless-mode) - Container engine
+- [Podman](https://podman.io/) with [rootless mode][rootless] - Container
+  engine
+
+[rootless]: https://docs.podman.io/en/latest/markdown/podman.1.html#rootless-mode
+
 - [Make](https://www.gnu.org/software/make/) - Build automation tool
 
 ## Quick Start
 
-Run `make` to start the development environment. See [Makefile](#makefile-tasks) for all available commands.
+Run `make` to start the development environment. See
+[Makefile](#makefile-tasks) for all available commands.
 
 ## Development Environment
 
 ### Container
 
-Running in a [Debian Trixie](https://hub.docker.com/_/debian) container ([dev.containerfile](env/dev/dev.containerfile))
+Running in a [Debian Trixie](https://hub.docker.com/_/debian) container
+([dev.containerfile](env/dev/dev.containerfile))
 
 ### Base System
 
 Base packages installed via apt:
 
-- [build-essential](https://packages.debian.org/trixie/build-essential) - Essential build tools
-- [ca-certificates](https://packages.debian.org/trixie/ca-certificates) - Common CA certificates
+- [build-essential](https://packages.debian.org/trixie/build-essential) -
+  Essential build tools
+- [ca-certificates](https://packages.debian.org/trixie/ca-certificates) -
+  Common CA certificates
 - [sudo](https://packages.debian.org/trixie/sudo) - Privilege escalation tool
 - [curl](https://packages.debian.org/trixie/curl) - Command line HTTP client
 - [git](https://packages.debian.org/trixie/git) - Version control system
 - [gnupg2](https://packages.debian.org/trixie/gnupg2) - GNU privacy guard
-- [zip](https://packages.debian.org/trixie/zip) / [unzip](https://packages.debian.org/trixie/unzip) - Archive utilities
+- [zip](https://packages.debian.org/trixie/zip) /
+  [unzip](https://packages.debian.org/trixie/unzip) - Archive utilities
 - [fish](https://packages.debian.org/trixie/fish) - Friendly interactive shell
 - [tzdata](https://packages.debian.org/trixie/tzdata) - Timezone data (Europe/Berlin)
 - [chromium](https://packages.debian.org/trixie/chromium) - Web browser
@@ -34,14 +43,17 @@ User `dev` with passwordless sudo access
 
 ### Shell
 
-[Fish](https://fishshell.com/) ([config](env/dev/fish/config.fish)) with plugins managed by [Fisher](https://github.com/jorgebucaran/fisher):
+[Fish](https://fishshell.com/) ([config](env/dev/fish/config.fish)) with
+plugins managed by [Fisher](https://github.com/jorgebucaran/fisher):
 
 - [hydro](https://github.com/jorgebucaran/hydro) - Minimal, lag-free prompt
-- [pisces](https://github.com/laughedelic/pisces) - Auto-pairing brackets and quotes
+- [pisces](https://github.com/laughedelic/pisces) - Auto-pairing brackets
+  and quotes
 
 ### Package Manager
 
-[mise](https://mise.jdx.dev/) - Polyglot runtime manager for managing development tools
+[mise](https://mise.jdx.dev/) - Polyglot runtime manager for managing
+development tools
 
 ### Terminal Multiplexer
 
@@ -59,38 +71,53 @@ User `dev` with passwordless sudo access
 
 [languages.toml](env/dev/helix/languages.toml)
 
-| Language   | LSP                                                                                                                                                              |
-| ---------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| All        | [simple-completion-language-server](https://github.com/estin/simple-completion-language-server)                                                                  |
-| TOML       | [taplo](https://taplo.tamasfe.dev/)                                                                                                                              |
-| Bash       | [bash-language-server](https://github.com/bash-lsp/bash-language-server)                                                                                         |
-| Markdown   | [vscode-markdown-language-server](https://github.com/microsoft/vscode)                                                                                           |
-| Dockerfile | [dockerfile-language-server-nodejs](https://github.com/rcjsuen/dockerfile-language-server-nodejs)                                                                |
-| JSON       | [vscode-json-language-server](https://github.com/microsoft/vscode-languageserver-node)                                                                           |
-| YAML       | [yaml-language-server](https://github.com/redhat-developer/yaml-language-server)                                                                                 |
-| HTML       | [vscode-html-language-server](https://github.com/microsoft/vscode-languageserver-node)                                                                           |
-| CSS        | [vscode-css-language-server](https://github.com/microsoft/vscode-languageserver-node)                                                                            |
-| TypeScript | [typescript-language-server](https://github.com/typescript-language-server/typescript-language-server)                                                           |
-| JavaScript | [typescript-language-server](https://github.com/typescript-language-server/typescript-language-server)                                                           |
-| Astro      | [@astrojs/language-server](https://github.com/withastro/language-tools), [tailwindcss-language-server](https://github.com/tailwindlabs/tailwindcss-intellisense) |
+| Language   | LSP                                                      |
+| ---------- | -------------------------------------------------------- |
+| All        | [simple-completion-language-server][scls]                |
+| TOML       | [taplo](https://taplo.tamasfe.dev/)                      |
+| Bash       | [bash-language-server][bash-lsp]                         |
+| Markdown   | [vscode-markdown-language-server][md-lsp]                |
+| Dockerfile | [dockerfile-language-server-nodejs][dockerfile-lsp]      |
+| JSON       | [vscode-json-language-server][json-lsp]                  |
+| YAML       | [yaml-language-server][yaml-lsp]                         |
+| HTML       | [vscode-html-language-server][html-lsp]                  |
+| CSS        | [vscode-css-language-server][css-lsp]                    |
+| TypeScript | [typescript-language-server][ts-lsp]                     |
+| JavaScript | [typescript-language-server][ts-lsp]                     |
+| Astro      | [@astrojs/language-server][astro-lsp], [tailwindcss][tw] |
+
+[scls]: https://github.com/estin/simple-completion-language-server
+[bash-lsp]: https://github.com/bash-lsp/bash-language-server
+[md-lsp]: https://github.com/microsoft/vscode
+[dockerfile-lsp]: https://github.com/rcjsuen/dockerfile-language-server-nodejs
+[json-lsp]: https://github.com/microsoft/vscode-languageserver-node
+[yaml-lsp]: https://github.com/redhat-developer/yaml-language-server
+[html-lsp]: https://github.com/microsoft/vscode-languageserver-node
+[css-lsp]: https://github.com/microsoft/vscode-languageserver-node
+[ts-lsp]: https://github.com/typescript-language-server/typescript-language-server
+[astro-lsp]: https://github.com/withastro/language-tools
+[tw]: https://github.com/tailwindlabs/tailwindcss-intellisense
 
 #### Formatters
 
 [languages.toml](env/dev/helix/languages.toml)
 
-| Language   | Formatter                                                                                                         |
-| ---------- | ----------------------------------------------------------------------------------------------------------------- |
-| TOML       | [taplo](https://taplo.tamasfe.dev/)                                                                               |
-| Bash       | [shfmt](https://github.com/mvdan/sh)                                                                              |
-| Markdown   | [prettier](https://prettier.io/)                                                                                  |
-| Dockerfile | [dockerfmt](https://github.com/reteps/dockerfmt)                                                                  |
-| JSON       | [prettier](https://prettier.io/)                                                                                  |
-| YAML       | [prettier](https://prettier.io/)                                                                                  |
-| HTML       | [prettier](https://prettier.io/)                                                                                  |
-| CSS        | [prettier](https://prettier.io/)                                                                                  |
-| TypeScript | [prettier](https://prettier.io/)                                                                                  |
-| JavaScript | [prettier](https://prettier.io/)                                                                                  |
-| Astro      | [prettier](https://prettier.io/) with [prettier-plugin-astro](https://github.com/withastro/prettier-plugin-astro) |
+| Language   | Formatter                                                   |
+| ---------- | ----------------------------------------------------------- |
+| TOML       | [taplo](https://taplo.tamasfe.dev/)                         |
+| Bash       | [shfmt](https://github.com/mvdan/sh)                        |
+| Markdown   | [prettier](https://prettier.io/)                            |
+| Dockerfile | [dockerfmt](https://github.com/reteps/dockerfmt)            |
+| JSON       | [prettier](https://prettier.io/)                            |
+| YAML       | [prettier](https://prettier.io/)                            |
+| HTML       | [prettier](https://prettier.io/)                            |
+| CSS        | [prettier](https://prettier.io/)                            |
+| TypeScript | [prettier](https://prettier.io/)                            |
+| JavaScript | [prettier](https://prettier.io/)                            |
+| Astro      | [prettier][prettier] with [prettier-plugin-astro][pp-astro] |
+
+[prettier]: https://prettier.io/
+[pp-astro]: https://github.com/withastro/prettier-plugin-astro
 
 ### Code Snippets
 
@@ -104,12 +131,16 @@ Custom snippets ([snippets directory](env/dev/snippets/)):
 
 [format.sh](env/dev/format.sh) - Automated code formatting script
 
-Intelligently formats files according to the Helix configuration using the appropriate formatter for each file type.
+Intelligently formats files according to the Helix configuration using the
+appropriate formatter for each file type.
 
-- **Smart file detection**: Automatically detects file types and applies the correct formatter
+- **Smart file detection**: Automatically detects file types and applies the
+  correct formatter
 - **Git integration**: Formats only changed/uncommitted files by default
-- **Gitignore aware**: Dynamically reads `.gitignore` to exclude files and directories
-- **Error handling**: Safely handles formatter failures with automatic cleanup of temporary files
+- **Gitignore aware**: Dynamically reads `.gitignore` to exclude files and
+  directories
+- **Error handling**: Safely handles formatter failures with automatic cleanup
+  of temporary files
 - **Colored output**: Clear visual feedback during formatting
 
 ```bash
@@ -117,16 +148,40 @@ make format           # Format changed and uncommitted files
 make format_all       # Format all files in the project
 ```
 
+### Linting
+
+[lint.sh](env/dev/lint.sh) - Automated code linting script
+
+Checks files for errors and code quality issues using appropriate linters
+for each file type.
+
+- **TypeScript type checking**: Runs `tsc --noEmit` for full type safety
+  validation
+- **Smart file detection**: Automatically detects file types and applies the
+  correct linter
+- **Git integration**: Lints only changed/uncommitted files by default
+- **Gitignore aware**: Dynamically reads `.gitignore` to exclude files and
+  directories
+- **Exit codes**: Returns non-zero exit code if lint errors are found
+- **Colored output**: Clear visual feedback with error counts
+
+```bash
+make lint             # Lint changed and uncommitted files
+make lint_all         # Lint all files in the project
+```
+
 ### AI Assistant
 
 [OpenCode](https://opencode.ai/) with MCP servers:
 
-- [chrome-devtools-mcp](https://github.com/sst/chrome-devtools-mcp) - Chrome DevTools integration
+- [chrome-devtools-mcp](https://github.com/sst/chrome-devtools-mcp) - Chrome
+  DevTools integration
 
 ### Runtime & Tooling
 
 - [Bun](https://bun.sh/) - Fast all-in-one JavaScript runtime and package manager
-- [Node.js](https://nodejs.org/) LTS - JavaScript runtime (still used for compatibility)
+- [Node.js](https://nodejs.org/) LTS - JavaScript runtime (still used for
+  compatibility)
 
 ### Development Tools
 
@@ -142,11 +197,13 @@ make format_all       # Format all files in the project
 
 ### Reverse Proxy
 
-[Caddy](https://caddyserver.com/) ([Caddyfile](env/dev/Caddyfile)) - Modern web server with automatic HTTPS
+[Caddy](https://caddyserver.com/) ([Caddyfile](env/dev/Caddyfile)) - Modern
+web server with automatic HTTPS
 
 ### Backend
 
-[PocketBase](https://pocketbase.io/) - Open-source backend with real-time database and authentication
+[PocketBase](https://pocketbase.io/) - Open-source backend with real-time
+database and authentication
 
 ### Makefile Tasks
 
@@ -157,6 +214,8 @@ make format_all       # Format all files in the project
 | `make dev_reset`  | Delete containers, images, and volumes  |
 | `make format`     | Format changed and uncommitted files    |
 | `make format_all` | Format all files in the project         |
+| `make lint`       | Lint changed and uncommitted files      |
+| `make lint_all`   | Lint all files in the project           |
 | `make help`       | Show all available commands             |
 
 ## Application Stack
@@ -168,11 +227,13 @@ make format_all       # Format all files in the project
 ### Styling
 
 - [Tailwind CSS](https://tailwindcss.com/) - Utility-first CSS framework
-- [@tailwindcss/vite](https://www.npmjs.com/package/@tailwindcss/vite) - Vite plugin for Tailwind CSS
+- [@tailwindcss/vite](https://www.npmjs.com/package/@tailwindcss/vite) - Vite
+  plugin for Tailwind CSS
 
 ### Language
 
-[TypeScript](https://www.typescriptlang.org/) - Type-safe JavaScript with strict configuration
+[TypeScript](https://www.typescriptlang.org/) - Type-safe JavaScript with
+strict configuration
 
 ### Available Scripts
 
@@ -183,7 +244,7 @@ make format_all       # Format all files in the project
 
 ## Project Structure
 
-```
+```text
 ├── env/                    # Development environment configuration
 │   └── dev/               # Dev container setup
 │       ├── fish/          # Fish shell config
