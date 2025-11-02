@@ -4,4 +4,3 @@ telemetry = false
 ignoreScripts = true
 exact = true
 minimumReleaseAge = 259200 # 3 days
-

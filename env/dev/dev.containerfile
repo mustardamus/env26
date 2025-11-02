@@ -44,7 +44,7 @@ RUN curl https://mise.run | sh \
     && mkdir -p .config/fish/conf.d \
     && echo "mise activate fish | source" >.config/fish/conf.d/mise.fish \
     && mise completion fish >>.config/fish/conf.d/mise.fish \
-    && echo 'eval "$($HOME/.local/bin/mise activate bash)"' >> .bashrc
+    && echo 'eval "$($HOME/.local/bin/mise activate bash)"' >>.bashrc
 
 RUN mise use --global zellij
 

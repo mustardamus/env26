@@ -15,4 +15,3 @@ prefix = "lw"
 scope = ["astro"]
 body = 'console.warn($1)'
 description = "console.warn()"
-

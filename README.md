@@ -100,6 +100,23 @@ Custom snippets ([snippets directory](env/dev/snippets/)):
 - [JavaScript](env/dev/snippets/javascript.toml)
 - [TypeScript](env/dev/snippets/typescript.toml)
 
+### Formatting
+
+[format.sh](env/dev/format.sh) - Automated code formatting script
+
+Intelligently formats files according to the Helix configuration using the appropriate formatter for each file type.
+
+- **Smart file detection**: Automatically detects file types and applies the correct formatter
+- **Git integration**: Formats only changed/uncommitted files by default
+- **Gitignore aware**: Dynamically reads `.gitignore` to exclude files and directories
+- **Error handling**: Safely handles formatter failures with automatic cleanup of temporary files
+- **Colored output**: Clear visual feedback during formatting
+
+```bash
+make format           # Format changed and uncommitted files
+make format_all       # Format all files in the project
+```
+
 ### AI Assistant
 
 [OpenCode](https://opencode.ai/) with MCP servers:
@@ -133,12 +150,14 @@ Custom snippets ([snippets directory](env/dev/snippets/)):
 
 ### Makefile Tasks
 
-| Command          | Description                             |
-| ---------------- | --------------------------------------- |
-| `make`           | Start development environment (default) |
-| `make dev_build` | Build development container image       |
-| `make dev_reset` | Delete containers, images, and volumes  |
-| `make help`      | Show all available commands             |
+| Command           | Description                             |
+| ----------------- | --------------------------------------- |
+| `make`            | Start development environment (default) |
+| `make dev_build`  | Build development container image       |
+| `make dev_reset`  | Delete containers, images, and volumes  |
+| `make format`     | Format changed and uncommitted files    |
+| `make format_all` | Format all files in the project         |
+| `make help`       | Show all available commands             |
 
 ## Application Stack
 
