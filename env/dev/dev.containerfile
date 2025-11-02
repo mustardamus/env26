@@ -3,7 +3,7 @@ FROM debian:trixie
 ENV USERNAME=dev
 ENV TIMEZONE=Europe/Berlin
 ENV WORKDIR="/home/$USERNAME"
-ENV PATH="$PATH:$WORKDIR/.local/bin"
+ENV PATH="$PATH:$WORKDIR/.local/bin:$WORKDIR/go/bin"
 ENV SHELL=/usr/bin/fish
 ENV TERM=xterm-256color
 ENV COLORTERM=truecolor
@@ -17,6 +17,7 @@ RUN apt-get update \
         git \
         gnupg2 \
         zip \
+        unzip \
         fish \
         tzdata \
         chromium \
@@ -39,7 +40,8 @@ RUN curl https://mise.run | sh \
     && mise use --global usage \
     && mkdir -p .config/fish/conf.d \
     && echo "mise activate fish | source" >.config/fish/conf.d/mise.fish \
-    && mise completion fish >>.config/fish/conf.d/mise.fish
+    && mise completion fish >>.config/fish/conf.d/mise.fish \
+    && echo 'eval "$($HOME/.local/bin/mise activate bash)"' >> .bashrc
 
 RUN mise use --global zellij
 
@@ -72,6 +74,24 @@ RUN mise use --global \
     npm:opencode-ai \
     npm:chrome-devtools-mcp
 
-RUN mise use --global bun
+RUN mise use --global \
+    bun \
+    lazygit \
+    caddy
+
+RUN mise use --global go \
+    && mise install go \
+    && $HOME/.local/share/mise/installs/go/latest/bin/go install github.com/mailhog/MailHog@latest \
+    && mv $HOME/go/bin/MailHog $HOME/.local/bin/mailhog
+
+RUN mise use --global jq \
+    && ARCH="linux_$(uname -m | sed 's/x86_64/amd64/' | sed 's/aarch64/arm64/')" \
+    && DOWNLOAD_URL=$(curl -s https://api.github.com/repos/pocketbase/pocketbase/releases/latest \
+        | $HOME/.local/share/mise/installs/jq/latest/jq -r --arg arch "$ARCH" \
+            '.assets[] | select(.name | contains($arch)) | select(.name | endswith(".zip")) | .browser_download_url') \
+    && curl -sL "$DOWNLOAD_URL" -o /tmp/pocketbase.zip \
+    && unzip /tmp/pocketbase.zip -d /tmp \
+    && rm /tmp/pocketbase.zip \
+    && mv /tmp/pocketbase $HOME/.local/bin/
 
 CMD ["tail", "-f", "/dev/null"]
