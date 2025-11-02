@@ -39,6 +39,7 @@ run() {
 		-v "$ENV_DIR/helix:$CONTAINER_CONFIG_DIR/helix:Z" \
 		-v "$ENV_DIR/snippets:$CONTAINER_HOME_DIR/.scls/snippets" \
 		-v "$ENV_DIR/zellij:$CONTAINER_CONFIG_DIR/zellij:Z" \
+		-v "$HOME/.gitconfig:$CONTAINER_HOME_DIR/.gitconfig:ro" \
 		"$IMAGE_NAME"
 }
 

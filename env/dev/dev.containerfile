@@ -8,6 +8,9 @@ ENV SHELL=/usr/bin/fish
 ENV TERM=xterm-256color
 ENV COLORTERM=truecolor
 
+# If you run into GitHub API Rate Limits, set a token https://github.com/settings/tokens
+# ENV GITHUB_TOKEN=ghp_vVMCGPUwFKtkrfUBxMgW1IhZuumxxxxxxxxx
+
 RUN apt-get update \
     && apt-get install -y --no-install-recommends \
         build-essential \
@@ -54,6 +57,7 @@ RUN mise use --global \
     npm:prettier \
     npm:dockerfile-language-server-nodejs \
     npm:vscode-langservers-extracted \
+    npm:yaml-language-server \
     npm:biome \
     npm:typescript \
     npm:typescript-language-server \

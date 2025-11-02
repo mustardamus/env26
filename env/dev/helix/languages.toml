@@ -66,6 +66,16 @@ language-servers = ["scls", "vscode-json-language-server"]
 formatter = { command = "prettier", args = ["--stdin-filepath", "file.json"] }
 auto-format = true
 
+[language-server.yaml-language-server]
+command = "yaml-language-server"
+args = ["--stdio"]
+
+[[language]]
+name = "yaml"
+language-servers = ["scls", "yaml-language-server"]
+formatter = { command = 'prettier', args = ["--stdin-filepath", "file.yaml"] }
+auto-format = true
+
 [[language]]
 name = "html"
 language-servers = ["scls", "vscode-html-language-server"]
