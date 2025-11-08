@@ -53,7 +53,9 @@ layout {
     }
     
     tab name="4:$" hide_floating_panes=true {
-        pane command="fish"
+        pane command="fish" {
+            args "-c" "mise upgrade && fish" 
+        }
         pane size=1 borderless=true {
             plugin location="tab-bar"
         }

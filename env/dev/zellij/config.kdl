@@ -14,6 +14,10 @@ keybinds clear-defaults=true {
         bind "F12" { GoToTab 12; }
         bind "Ctrl q" { Quit; }
         bind "Alt Space" { ToggleFloatingPanes; }
+        bind "Alt Left" { MoveFocus "Left"; }
+        bind "Alt Right" { MoveFocus "Right"; }
+        bind "Alt n" { NewPane; }
+        bind "Alt x" { CloseFocus; }
     }
 }
 
