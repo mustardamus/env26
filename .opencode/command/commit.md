@@ -1,7 +1,5 @@
 ---
 description: Lint, Format and Git Commit changed files
-model: anthropic/claude-opus-4-1
-temperature: 0.1
 ---
 
 First run the lint command `make lint` successfully, then run the format

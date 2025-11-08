@@ -37,7 +37,6 @@ run() {
 		-v "$VOLUME_NAME:$CONTAINER_HOME_DIR:Z" \
 		-v "$ENV_DIR/fish/config.fish:$CONTAINER_CONFIG_DIR/fish/config.fish:Z" \
 		-v "$ENV_DIR/helix:$CONTAINER_CONFIG_DIR/helix:Z" \
-		-v "$ENV_DIR/snippets:$CONTAINER_HOME_DIR/.scls/snippets" \
 		-v "$ENV_DIR/zellij:$CONTAINER_CONFIG_DIR/zellij:Z" \
 		-v "$HOME/.gitconfig:$CONTAINER_HOME_DIR/.gitconfig:ro" \
 		"$IMAGE_NAME"
