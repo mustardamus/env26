@@ -6,11 +6,22 @@
     "dev": "ASTRO_TELEMETRY_DISABLED=1 astro dev",
     "build": "ASTRO_TELEMETRY_DISABLED=1 astro build",
     "preview": "ASTRO_TELEMETRY_DISABLED=1 astro preview",
-    "astro": "ASTRO_TELEMETRY_DISABLED=1 astro"
+    "astro": "ASTRO_TELEMETRY_DISABLED=1 astro",
+    "test": "bun run test:unit && bun run test:e2e",
+    "test:unit": "vitest run",
+    "test:unit:watch": "vitest",
+    "test:e2e": "playwright test",
+    "test:e2e:watch": "PWTEST_WATCH=1 playwright test"
   },
   "dependencies": {
     "@tailwindcss/vite": "4.1.16",
     "astro": "5.15.3",
     "tailwindcss": "4.1.16"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.56.1",
+    "@vitest/browser": "4.0.6",
+    "@vitest/browser-playwright": "4.0.6",
+    "vitest": "4.0.6"
   }
 }

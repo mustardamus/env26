@@ -26,3 +26,14 @@ pnpm-debug.log*
 # pocketbase data
 pb_data
 
+# Playwright
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/
+
+# Vitest Browser screenshots
+__screenshots__
+
+# temporary files
+tmp
