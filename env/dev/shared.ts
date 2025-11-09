@@ -49,10 +49,13 @@ function isIgnored(filePath: string, patterns: string[]): boolean {
   return patterns.some((pattern) => matchesPattern(filePath, pattern));
 }
 
-export async function getAllFiles(rootDir: string, ignorePatterns: string[]) {
+async function getIgnorePatterns(
+  rootDir: string,
+  ignorePatterns: string[],
+): Promise<string[]> {
   const gitignorePath = join(rootDir, ".gitignore");
   const gitignoreContent = await readFile(gitignorePath, "utf-8");
-  const patterns = [
+  return [
     ".git/",
     ...ignorePatterns,
     ...gitignoreContent
@@ -60,6 +63,10 @@ export async function getAllFiles(rootDir: string, ignorePatterns: string[]) {
       .map((line) => line.trim())
       .filter((line) => line && !line.startsWith("#")),
   ];
+}
+
+export async function getAllFiles(rootDir: string, ignorePatterns: string[]) {
+  const patterns = await getIgnorePatterns(rootDir, ignorePatterns);
   const entries = await readdir(rootDir, {
     recursive: true,
     withFileTypes: true,
@@ -69,4 +76,58 @@ export async function getAllFiles(rootDir: string, ignorePatterns: string[]) {
     .filter((entry) => entry.isFile())
     .map((entry) => join(entry.parentPath, entry.name))
     .filter((file) => !isIgnored(file, patterns));
+}
+
+export async function getChangedFiles(
+  rootDir: string,
+  ignorePatterns: string[],
+): Promise<string[]> {
+  const patterns = await getIgnorePatterns(rootDir, ignorePatterns);
+  const proc = Bun.spawn(
+    ["git", "diff", "--name-only", "--diff-filter=ACM", "HEAD"],
+    {
+      cwd: rootDir,
+      stdout: "pipe",
+      stderr: "pipe",
+    },
+  );
+
+  const stdout = await new Response(proc.stdout).text();
+  await proc.exited;
+
+  if (proc.exitCode !== 0) {
+    throw new Error("Failed to get changed files from git");
+  }
+
+  const changedFiles = stdout
+    .trim()
+    .split("\n")
+    .filter((line) => line.trim())
+    .map((file) => join(rootDir, file))
+    .filter((file) => !isIgnored(file, patterns));
+
+  const untrackedProc = Bun.spawn(
+    ["git", "ls-files", "--others", "--exclude-standard"],
+    {
+      cwd: rootDir,
+      stdout: "pipe",
+      stderr: "pipe",
+    },
+  );
+
+  const untrackedStdout = await new Response(untrackedProc.stdout).text();
+  await untrackedProc.exited;
+
+  if (untrackedProc.exitCode !== 0) {
+    throw new Error("Failed to get untracked files from git");
+  }
+
+  const untrackedFiles = untrackedStdout
+    .trim()
+    .split("\n")
+    .filter((line) => line.trim())
+    .map((file) => join(rootDir, file))
+    .filter((file) => !isIgnored(file, patterns));
+
+  return [...new Set([...changedFiles, ...untrackedFiles])];
 }

@@ -1,21 +1,27 @@
 import { join } from "node:path";
-import { getAllFiles } from "./shared";
+import { getAllFiles, getChangedFiles } from "./shared";
 import languageConfigs, { type LanguageConfig } from "./langs";
 
 const mode = Bun.argv[2] || "health";
 const rootDir = join(import.meta.dirname, "../..");
-const files = await getAllFiles(rootDir, [
-  ".opencode/.gitignore",
-  ".opencode/package.json",
-  "bun.lock",
-  ".gitignore",
-]);
 
 if (!["health", "changed", "all"].includes(mode)) {
   console.error(`Invalid mode: ${mode}`);
   console.error("Usage: bun run format.ts [health|changed|all]");
   process.exit(1);
 }
+
+const ignorePatterns = [
+  ".opencode/.gitignore",
+  ".opencode/package.json",
+  "bun.lock",
+  ".gitignore",
+];
+
+const files =
+  mode === "changed"
+    ? await getChangedFiles(rootDir, ignorePatterns)
+    : await getAllFiles(rootDir, ignorePatterns);
 
 async function binaryExists(binary: string): Promise<boolean> {
   try {
