@@ -84,7 +84,13 @@ RUN mise use --global \
 
 RUN mise use --global \
     shellcheck \
-    markdownlint-cli2
+    markdownlint-cli2 \
+    nodejs@lts \
+    npm:eslint \
+    npm:@typescript-eslint/eslint-plugin \
+    npm:@typescript-eslint/parser \
+    npm:eslint-plugin-astro \
+    npm:eslint-plugin-jsonc
 
 RUN mise use --global go \
     && mise install go \

@@ -10,24 +10,26 @@ const languageConfigs: LanguageConfig[] = [
     lang: "typescript",
     ext: [".ts", ".tsx"],
     format: "prettier --write $1",
-    lint: "tsc --noEmit --skipLibCheck --module esnext --target esnext --lib esnext,dom --moduleResolution bundler --downlevelIteration $1",
+    lint: "~/.local/share/mise/installs/npm-eslint/latest/bin/eslint $1 && tsc --noEmit --skipLibCheck --module esnext --target esnext --lib esnext,dom --moduleResolution bundler --downlevelIteration $1",
   },
   {
     lang: "javascript",
     ext: [".js", ".jsx", ".mjs", ".cjs"],
     format: "prettier --write $1",
+    lint: "~/.local/share/mise/installs/npm-eslint/latest/bin/eslint $1",
   },
   {
     lang: "astro",
     ext: [".astro"],
     format:
       "prettier --write --plugin ~/.local/share/mise/installs/npm-prettier-plugin-astro/latest/lib/node_modules/prettier-plugin-astro/dist/index.js $1",
+    lint: "~/.local/share/mise/installs/npm-eslint/latest/bin/eslint $1",
   },
   {
     lang: "json",
     ext: [".json"],
     format: "prettier --write $1",
-    lint: "jq empty $1",
+    lint: "~/.local/share/mise/installs/npm-eslint/latest/bin/eslint $1",
   },
   {
     lang: "markdown",
