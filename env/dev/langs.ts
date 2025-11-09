@@ -20,7 +20,8 @@ const languageConfigs: LanguageConfig[] = [
   {
     lang: "astro",
     ext: [".astro"],
-    format: "prettier --write --plugin prettier-plugin-astro $1",
+    format:
+      "prettier --write --plugin ~/.local/share/mise/installs/npm-prettier-plugin-astro/latest/lib/node_modules/prettier-plugin-astro/dist/index.js $1",
   },
   {
     lang: "json",
