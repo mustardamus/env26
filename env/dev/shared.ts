@@ -49,11 +49,12 @@ function isIgnored(filePath: string, patterns: string[]): boolean {
   return patterns.some((pattern) => matchesPattern(filePath, pattern));
 }
 
-export async function getAllFiles(rootDir: string) {
+export async function getAllFiles(rootDir: string, ignorePatterns: string[]) {
   const gitignorePath = join(rootDir, ".gitignore");
   const gitignoreContent = await readFile(gitignorePath, "utf-8");
   const patterns = [
     ".git/",
+    ...ignorePatterns,
     ...gitignoreContent
       .split("\n")
       .map((line) => line.trim())

@@ -27,10 +27,10 @@ pnpm-debug.log*
 pb_data
 
 # Playwright
-/test-results/
-/playwright-report/
-/blob-report/
-/playwright/.cache/
+test-results/
+playwright-report/
+blob-report/
+playwright/.cache/
 
 # Vitest Browser screenshots
 __screenshots__
