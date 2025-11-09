@@ -53,6 +53,7 @@ const languageConfigs: LanguageConfig[] = [
     lang: "css",
     ext: [".css"],
     format: "prettier --write $1",
+    lint: "~/.local/share/mise/installs/npm-stylelint/latest/bin/stylelint $1",
   },
   {
     lang: "html",

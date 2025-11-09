@@ -80,7 +80,7 @@ All languages supported by the development environment with their tools:
 | [Markdown](https://www.markdownguide.org/)                            | [vscode-markdown-language-server](https://github.com/microsoft/vscode)                                                                               | [markdownlint-cli2](https://github.com/DavidAnson/markdownlint-cli2)                                                                                            | [Prettier](https://prettier.io/)                                                                               |
 | [YAML](https://yaml.org/)                                             | [yaml-language-server](https://github.com/redhat-developer/yaml-language-server)                                                                     | [yq](https://github.com/mikefarah/yq)                                                                                                                           | [Prettier](https://prettier.io/)                                                                               |
 | [TOML](https://toml.io/)                                              | [taplo](https://taplo.tamasfe.dev/)                                                                                                                  | [taplo check](https://taplo.tamasfe.dev/)                                                                                                                       | [taplo fmt](https://taplo.tamasfe.dev/)                                                                        |
-| [CSS](https://www.w3.org/Style/CSS/)                                  | [vscode-css-language-server](https://github.com/microsoft/vscode-languageserver-node)                                                                | -                                                                                                                                                               | [Prettier](https://prettier.io/)                                                                               |
+| [CSS](https://www.w3.org/Style/CSS/)                                  | [vscode-css-language-server](https://github.com/microsoft/vscode-languageserver-node)                                                                | [Stylelint](https://stylelint.io/)                                                                                                                              | [Prettier](https://prettier.io/)                                                                               |
 | [HTML](https://html.spec.whatwg.org/)                                 | [vscode-html-language-server](https://github.com/microsoft/vscode-languageserver-node)                                                               | -                                                                                                                                                               | [Prettier](https://prettier.io/)                                                                               |
 | [Bash](https://www.gnu.org/software/bash/)                            | [bash-language-server](https://github.com/bash-lsp/bash-language-server)                                                                             | [shellcheck](https://www.shellcheck.net/)                                                                                                                       | [shfmt](https://github.com/mvdan/sh)                                                                           |
 | [Fish](https://fishshell.com/)                                        | -                                                                                                                                                    | -                                                                                                                                                               | [fish_indent](https://fishshell.com/docs/current/cmds/fish_indent.html)                                        |
@@ -141,6 +141,30 @@ for each file type.
 ```bash
 make lint             # Lint changed and uncommitted files
 make lint_all         # Lint all files in the project
+```
+
+### Linter Plugin Management
+
+Linter plugins (ESLint, Stylelint) are installed globally via mise and symlinked
+into the project's `node_modules/` directory. This approach:
+
+- Uses global installations managed by mise
+- Avoids polluting `package.json` with linter dependencies
+- Automatically creates symlinks on container startup
+
+Symlinks are created automatically by
+[setup-symlinks.sh](env/dev/setup-symlinks.sh) when running `make` (dev
+environment startup). The script creates symlinks for:
+
+- `@typescript-eslint/parser` & `@typescript-eslint/eslint-plugin`
+- `eslint-plugin-astro`
+- `eslint-plugin-jsonc`
+- `stylelint`
+
+To manually recreate symlinks (if needed):
+
+```bash
+bash env/dev/setup-symlinks.sh
 ```
 
 ### AI Assistant
