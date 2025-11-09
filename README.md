@@ -67,57 +67,30 @@ development tools
 
 [Helix](https://helix-editor.com/) ([config](env/dev/helix/config.toml))
 
-#### Language Servers
+### Supported Languages
 
-[languages.toml](env/dev/helix/languages.toml)
+All languages supported by the development environment with their tools:
 
-| Language   | LSP                                                      |
-| ---------- | -------------------------------------------------------- |
-| All        | [simple-completion-language-server][scls]                |
-| TOML       | [taplo](https://taplo.tamasfe.dev/)                      |
-| Bash       | [bash-language-server][bash-lsp]                         |
-| Markdown   | [vscode-markdown-language-server][md-lsp]                |
-| Dockerfile | [dockerfile-language-server-nodejs][dockerfile-lsp]      |
-| JSON       | [vscode-json-language-server][json-lsp]                  |
-| YAML       | [yaml-language-server][yaml-lsp]                         |
-| HTML       | [vscode-html-language-server][html-lsp]                  |
-| CSS        | [vscode-css-language-server][css-lsp]                    |
-| TypeScript | [typescript-language-server][ts-lsp]                     |
-| JavaScript | [typescript-language-server][ts-lsp]                     |
-| Astro      | [@astrojs/language-server][astro-lsp], [tailwindcss][tw] |
+| Language                                                              | LSP                                                                                                                                                  | Linter                                                                     | Formatter                                                                                                      |
+| --------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------- |
+| [TypeScript](https://www.typescriptlang.org/)                         | [typescript-language-server](https://github.com/typescript-language-server/typescript-language-server)                                               | [tsc](https://www.typescriptlang.org/docs/handbook/compiler-options.html)  | [Prettier](https://prettier.io/)                                                                               |
+| [JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript) | [typescript-language-server](https://github.com/typescript-language-server/typescript-language-server)                                               | -                                                                          | [Prettier](https://prettier.io/)                                                                               |
+| [Astro](https://astro.build/)                                         | [@astrojs/language-server](https://github.com/withastro/language-tools) + [tailwindcss-ls](https://github.com/tailwindlabs/tailwindcss-intellisense) | -                                                                          | [Prettier](https://prettier.io/) + [prettier-plugin-astro](https://github.com/withastro/prettier-plugin-astro) |
+| [JSON](https://www.json.org/)                                         | [vscode-json-language-server](https://github.com/microsoft/vscode-languageserver-node)                                                               | [jq](https://jqlang.github.io/jq/)                                         | [Prettier](https://prettier.io/)                                                                               |
+| [Markdown](https://www.markdownguide.org/)                            | [vscode-markdown-language-server](https://github.com/microsoft/vscode)                                                                               | [markdownlint-cli2](https://github.com/DavidAnson/markdownlint-cli2)       | [Prettier](https://prettier.io/)                                                                               |
+| [YAML](https://yaml.org/)                                             | [yaml-language-server](https://github.com/redhat-developer/yaml-language-server)                                                                     | [yq](https://github.com/mikefarah/yq)                                      | [Prettier](https://prettier.io/)                                                                               |
+| [TOML](https://toml.io/)                                              | [taplo](https://taplo.tamasfe.dev/)                                                                                                                  | [taplo check](https://taplo.tamasfe.dev/)                                  | [taplo fmt](https://taplo.tamasfe.dev/)                                                                        |
+| [CSS](https://www.w3.org/Style/CSS/)                                  | [vscode-css-language-server](https://github.com/microsoft/vscode-languageserver-node)                                                                | -                                                                          | [Prettier](https://prettier.io/)                                                                               |
+| [HTML](https://html.spec.whatwg.org/)                                 | [vscode-html-language-server](https://github.com/microsoft/vscode-languageserver-node)                                                               | -                                                                          | [Prettier](https://prettier.io/)                                                                               |
+| [Bash](https://www.gnu.org/software/bash/)                            | [bash-language-server](https://github.com/bash-lsp/bash-language-server)                                                                             | [shellcheck](https://www.shellcheck.net/)                                  | [shfmt](https://github.com/mvdan/sh)                                                                           |
+| [Fish](https://fishshell.com/)                                        | -                                                                                                                                                    | -                                                                          | [fish_indent](https://fishshell.com/docs/current/cmds/fish_indent.html)                                        |
+| [Dockerfile](https://docs.docker.com/reference/dockerfile/)           | [dockerfile-language-server](https://github.com/rcjsuen/dockerfile-language-server-nodejs)                                                           | -                                                                          | [dockerfmt](https://github.com/reteps/dockerfmt)                                                               |
+| [Caddyfile](https://caddyserver.com/docs/caddyfile)                   | -                                                                                                                                                    | [caddy validate](https://caddyserver.com/docs/command-line#caddy-validate) | -                                                                                                              |
+| [KDL](https://kdl.dev/)                                               | -                                                                                                                                                    | -                                                                          | -                                                                                                              |
 
-[scls]: https://github.com/estin/simple-completion-language-server
-[bash-lsp]: https://github.com/bash-lsp/bash-language-server
-[md-lsp]: https://github.com/microsoft/vscode
-[dockerfile-lsp]: https://github.com/rcjsuen/dockerfile-language-server-nodejs
-[json-lsp]: https://github.com/microsoft/vscode-languageserver-node
-[yaml-lsp]: https://github.com/redhat-developer/yaml-language-server
-[html-lsp]: https://github.com/microsoft/vscode-languageserver-node
-[css-lsp]: https://github.com/microsoft/vscode-languageserver-node
-[ts-lsp]: https://github.com/typescript-language-server/typescript-language-server
-[astro-lsp]: https://github.com/withastro/language-tools
-[tw]: https://github.com/tailwindlabs/tailwindcss-intellisense
-
-#### Formatters
-
-[languages.toml](env/dev/helix/languages.toml)
-
-| Language   | Formatter                                                   |
-| ---------- | ----------------------------------------------------------- |
-| TOML       | [taplo](https://taplo.tamasfe.dev/)                         |
-| Bash       | [shfmt](https://github.com/mvdan/sh)                        |
-| Markdown   | [prettier](https://prettier.io/)                            |
-| Dockerfile | [dockerfmt](https://github.com/reteps/dockerfmt)            |
-| JSON       | [prettier](https://prettier.io/)                            |
-| YAML       | [prettier](https://prettier.io/)                            |
-| HTML       | [prettier](https://prettier.io/)                            |
-| CSS        | [prettier](https://prettier.io/)                            |
-| TypeScript | [prettier](https://prettier.io/)                            |
-| JavaScript | [prettier](https://prettier.io/)                            |
-| Astro      | [prettier][prettier] with [prettier-plugin-astro][pp-astro] |
-
-[prettier]: https://prettier.io/
-[pp-astro]: https://github.com/withastro/prettier-plugin-astro
+**Note**: All languages also have
+[simple-completion-language-server](https://github.com/estin/simple-completion-language-server)
+enabled for additional completions and snippets.
 
 ### Code Snippets
 

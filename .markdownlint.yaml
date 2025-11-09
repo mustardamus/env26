@@ -1,0 +1,15 @@
+# Markdownlint configuration
+# https://github.com/DavidAnson/markdownlint/blob/main/doc/Rules.md
+
+# MD013/line-length - Line length
+MD013:
+  line_length: 80
+  heading_line_length: 80
+  code_block_line_length: 120
+  # Ignore line length in tables and code blocks
+  tables: false
+  code_blocks: false
+  # Strict mode disabled to allow some flexibility
+  strict: false
+  # Allow long lines in headings
+  headings: false
