@@ -91,6 +91,7 @@ RUN mise use --global \
     npm:@typescript-eslint/parser \
     npm:eslint-plugin-astro \
     npm:eslint-plugin-jsonc \
+    npm:eslint-plugin-jsx-a11y \
     stylelint \
     npm:html-validate
 

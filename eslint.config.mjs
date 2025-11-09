@@ -2,6 +2,7 @@ import tsParser from "@typescript-eslint/parser";
 import tsPlugin from "@typescript-eslint/eslint-plugin";
 import astroPlugin from "eslint-plugin-astro";
 import jsoncPlugin from "eslint-plugin-jsonc";
+import jsxA11yPlugin from "eslint-plugin-jsx-a11y";
 
 export default [
   {
@@ -37,4 +38,13 @@ export default [
   },
   ...astroPlugin.configs.recommended,
   ...jsoncPlugin.configs["flat/recommended-with-json"],
+  {
+    files: ["**/*.{js,jsx,ts,tsx,astro}"],
+    plugins: {
+      "jsx-a11y": jsxA11yPlugin,
+    },
+    rules: {
+      ...jsxA11yPlugin.configs.recommended.rules,
+    },
+  },
 ];

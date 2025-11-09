@@ -33,6 +33,12 @@ if [ -d "$MISE_INSTALLS/npm-eslint-plugin-jsonc/latest/lib/node_modules/eslint-p
 		"$NODE_MODULES/eslint-plugin-jsonc"
 fi
 
+# ESLint JSX a11y plugin
+if [ -d "$MISE_INSTALLS/npm-eslint-plugin-jsx-a11y/latest/lib/node_modules/eslint-plugin-jsx-a11y" ]; then
+	ln -sf "$MISE_INSTALLS/npm-eslint-plugin-jsx-a11y/latest/lib/node_modules/eslint-plugin-jsx-a11y" \
+		"$NODE_MODULES/eslint-plugin-jsx-a11y"
+fi
+
 # Stylelint
 if [ -d "$MISE_INSTALLS/npm-stylelint/latest/lib/node_modules/stylelint" ]; then
 	ln -sf "$MISE_INSTALLS/npm-stylelint/latest/lib/node_modules/stylelint" \
