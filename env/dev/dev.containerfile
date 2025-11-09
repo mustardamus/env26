@@ -91,7 +91,8 @@ RUN mise use --global \
     npm:@typescript-eslint/parser \
     npm:eslint-plugin-astro \
     npm:eslint-plugin-jsonc \
-    stylelint
+    stylelint \
+    npm:html-validate
 
 RUN mise use --global go \
     && mise install go \

@@ -59,6 +59,7 @@ const languageConfigs: LanguageConfig[] = [
     lang: "html",
     ext: [".html"],
     format: "prettier --write $1",
+    lint: "~/.local/share/mise/installs/npm-html-validate/latest/bin/html-validate $1",
   },
   {
     lang: "bash",
