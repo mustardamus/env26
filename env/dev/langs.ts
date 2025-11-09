@@ -10,7 +10,7 @@ const languageConfigs: LanguageConfig[] = [
     lang: "typescript",
     ext: [".ts", ".tsx"],
     format: "prettier --write $1",
-    lint: "tsc --noEmit $1",
+    lint: "tsc --noEmit --skipLibCheck --module esnext --target esnext --lib esnext,dom --moduleResolution bundler --downlevelIteration $1",
   },
   {
     lang: "javascript",
