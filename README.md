@@ -129,7 +129,7 @@ Custom snippets ([snippets directory](env/dev/snippets/)):
 
 ### Formatting
 
-[format.sh](env/dev/format.sh) - Automated code formatting script
+[format.ts](env/dev/format.ts) - Automated code formatting script
 
 Intelligently formats files according to the Helix configuration using the
 appropriate formatter for each file type.
@@ -150,7 +150,7 @@ make format_all       # Format all files in the project
 
 ### Linting
 
-[lint.sh](env/dev/lint.sh) - Automated code linting script
+[lint.ts](env/dev/lint.ts) - Automated code linting script
 
 Checks files for errors and code quality issues using appropriate linters
 for each file type.

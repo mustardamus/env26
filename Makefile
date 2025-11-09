@@ -15,13 +15,13 @@ dev: ## Run development environment
 	@bash ./env/dev/run.sh dev
 
 format: ## Format changed and uncommitted files
-	@bash ./env/dev/format.sh
+	@bun ./env/dev/format.ts changed
 
 format_all: ## Format all files in the project
-	@bash ./env/dev/format.sh all
+	@bun ./env/dev/format.ts all
 
 lint: ## Lint changed and uncommitted files
-	@bash ./env/dev/lint.sh
+	@bun ./env/dev/lint.ts changed
 
 lint_all: ## Lint all files in the project
-	@bash ./env/dev/lint.sh all
+	@bun ./env/dev/lint.ts all
