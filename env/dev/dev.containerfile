@@ -92,7 +92,7 @@ RUN mise use --global \
     npm:eslint-plugin-astro \
     npm:eslint-plugin-jsonc \
     npm:eslint-plugin-jsx-a11y \
-    stylelint \
+    npm:stylelint \
     npm:html-validate
 
 RUN mise use --global go \
