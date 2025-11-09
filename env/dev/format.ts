@@ -1,9 +1,13 @@
 import { join } from "node:path";
-import { getAllFiles, getChangedFiles } from "./shared";
-import languageConfigs, { type LanguageConfig } from "./langs";
+import {
+  getAllFiles,
+  getChangedFiles,
+  executeCommand,
+  binaryExists,
+  getLanguageConfig,
+} from "./shared";
 
 const mode = Bun.argv[2] || "health";
-const rootDir = join(import.meta.dirname, "../..");
 
 if (!["health", "changed", "all"].includes(mode)) {
   console.error(`Invalid mode: ${mode}`);
@@ -11,6 +15,7 @@ if (!["health", "changed", "all"].includes(mode)) {
   process.exit(1);
 }
 
+const rootDir = join(import.meta.dirname, "../..");
 const ignorePatterns = [
   ".opencode/.gitignore",
   ".opencode/package.json",
@@ -22,62 +27,6 @@ const files =
   mode === "changed"
     ? await getChangedFiles(rootDir, ignorePatterns)
     : await getAllFiles(rootDir, ignorePatterns);
-
-async function binaryExists(binary: string): Promise<boolean> {
-  try {
-    const proc = Bun.spawn(["which", binary], {
-      stdout: "pipe",
-      stderr: "pipe",
-    });
-    await proc.exited;
-    return proc.exitCode === 0;
-  } catch {
-    return false;
-  }
-}
-
-interface CommandResult {
-  success: boolean;
-  stdout: string;
-  stderr: string;
-  exitCode: number;
-}
-
-async function executeCommand(command: string): Promise<CommandResult> {
-  try {
-    const proc = Bun.spawn(["sh", "-c", command], {
-      stdout: "pipe",
-      stderr: "pipe",
-    });
-
-    const stdout = await new Response(proc.stdout).text();
-    const stderr = await new Response(proc.stderr).text();
-    await proc.exited;
-
-    return {
-      success: proc.exitCode === 0,
-      stdout: stdout.trim(),
-      stderr: stderr.trim(),
-      exitCode: proc.exitCode || 0,
-    };
-  } catch (error) {
-    return {
-      success: false,
-      stdout: "",
-      stderr: error instanceof Error ? error.message : String(error),
-      exitCode: 1,
-    };
-  }
-}
-
-function getLanguageConfig(filePath: string): LanguageConfig | null {
-  const basename = filePath.split("/").pop() || "";
-  const ext = basename.includes(".")
-    ? `.${basename.split(".").pop()}`
-    : basename;
-
-  return languageConfigs.find((config) => config.ext.includes(ext)) ?? null;
-}
 
 for (const file of files) {
   const config = getLanguageConfig(file);

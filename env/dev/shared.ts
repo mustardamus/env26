@@ -1,5 +1,54 @@
 import { readdir, readFile, stat } from "node:fs/promises";
 import { join } from "node:path";
+import languageConfigs, { type LanguageConfig } from "./langs";
+
+export interface CommandResult {
+  success: boolean;
+  stdout: string;
+  stderr: string;
+  exitCode: number;
+}
+
+export async function executeCommand(command: string): Promise<CommandResult> {
+  try {
+    const proc = Bun.spawn(["sh", "-c", command], {
+      stdout: "pipe",
+      stderr: "pipe",
+    });
+
+    const stdout = await new Response(proc.stdout).text();
+    const stderr = await new Response(proc.stderr).text();
+    await proc.exited;
+
+    return {
+      success: proc.exitCode === 0,
+      stdout: stdout.trim(),
+      stderr: stderr.trim(),
+      exitCode: proc.exitCode || 0,
+    };
+  } catch (error) {
+    return {
+      success: false,
+      stdout: "",
+      stderr: error instanceof Error ? error.message : String(error),
+      exitCode: 1,
+    };
+  }
+}
+
+export async function binaryExists(binary: string): Promise<boolean> {
+  const result = await executeCommand(`which ${binary}`);
+  return result.success;
+}
+
+export function getLanguageConfig(filePath: string): LanguageConfig | null {
+  const basename = filePath.split("/").pop() || "";
+  const ext = basename.includes(".")
+    ? `.${basename.split(".").pop()}`
+    : basename;
+
+  return languageConfigs.find((config) => config.ext.includes(ext)) ?? null;
+}
 
 function matchesPattern(filePath: string, pattern: string): boolean {
   const isDirectoryPattern = pattern.endsWith("/");
@@ -83,47 +132,28 @@ export async function getChangedFiles(
   ignorePatterns: string[],
 ): Promise<string[]> {
   const patterns = await getIgnorePatterns(rootDir, ignorePatterns);
-  const proc = Bun.spawn(
-    ["git", "diff", "--name-only", "--diff-filter=ACM", "HEAD"],
-    {
-      cwd: rootDir,
-      stdout: "pipe",
-      stderr: "pipe",
-    },
+  const changedResult = await executeCommand(
+    `cd "${rootDir}" && git diff --name-only --diff-filter=ACM HEAD`,
   );
 
-  const stdout = await new Response(proc.stdout).text();
-  await proc.exited;
-
-  if (proc.exitCode !== 0) {
+  if (!changedResult.success) {
     throw new Error("Failed to get changed files from git");
   }
 
-  const changedFiles = stdout
-    .trim()
+  const changedFiles = changedResult.stdout
     .split("\n")
     .filter((line) => line.trim())
     .map((file) => join(rootDir, file))
     .filter((file) => !isIgnored(file, patterns));
-
-  const untrackedProc = Bun.spawn(
-    ["git", "ls-files", "--others", "--exclude-standard"],
-    {
-      cwd: rootDir,
-      stdout: "pipe",
-      stderr: "pipe",
-    },
+  const untrackedResult = await executeCommand(
+    `cd "${rootDir}" && git ls-files --others --exclude-standard`,
   );
 
-  const untrackedStdout = await new Response(untrackedProc.stdout).text();
-  await untrackedProc.exited;
-
-  if (untrackedProc.exitCode !== 0) {
+  if (!untrackedResult.success) {
     throw new Error("Failed to get untracked files from git");
   }
 
-  const untrackedFiles = untrackedStdout
-    .trim()
+  const untrackedFiles = untrackedResult.stdout
     .split("\n")
     .filter((line) => line.trim())
     .map((file) => join(rootDir, file))
