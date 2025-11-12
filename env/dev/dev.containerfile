@@ -54,14 +54,12 @@ RUN mise use --global \
     taplo \
     node@lts \
     npm:bash-language-server \
-    npm:prettier \
     npm:dockerfile-language-server-nodejs \
     npm:vscode-langservers-extracted \
     npm:yaml-language-server \
     npm:typescript \
     npm:typescript-language-server \
     npm:@astrojs/language-server \
-    npm:prettier-plugin-astro \
     npm:@tailwindcss/language-server \
     go \
     go:github.com/reteps/dockerfmt@latest \
@@ -83,17 +81,7 @@ RUN mise use --global \
     caddy
 
 RUN mise use --global \
-    shellcheck \
-    markdownlint-cli2 \
-    nodejs@lts \
-    npm:eslint \
-    npm:@typescript-eslint/eslint-plugin \
-    npm:@typescript-eslint/parser \
-    npm:eslint-plugin-astro \
-    npm:eslint-plugin-jsonc \
-    npm:eslint-plugin-jsx-a11y \
-    npm:stylelint \
-    npm:html-validate
+    shellcheck
 
 RUN mise use --global go \
     && mise install go \

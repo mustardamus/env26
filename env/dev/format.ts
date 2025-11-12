@@ -3,7 +3,6 @@ import {
   getAllFiles,
   getChangedFiles,
   executeCommand,
-  binaryExists,
   getLanguageConfig,
 } from "./shared";
 
@@ -21,12 +20,16 @@ const ignorePatterns = [
   ".opencode/package.json",
   "bun.lock",
   ".gitignore",
+  "node_modules/",
 ];
 
 const files =
   mode === "changed"
     ? await getChangedFiles(rootDir, ignorePatterns)
     : await getAllFiles(rootDir, ignorePatterns);
+
+// Group files by format script
+const filesByScript = new Map<string, string[]>();
 
 for (const file of files) {
   const config = getLanguageConfig(file);
@@ -38,52 +41,37 @@ for (const file of files) {
     continue;
   }
 
-  if (config.format) {
-    const binary = config.format.split(" ").at(0) || "";
-    const exists = await binaryExists(binary);
-
-    if (!exists) {
-      if (mode === "health") {
-        console.warn(
-          `[${config.lang}] Binary '${binary}' not found for format command`,
-        );
-      }
-    } else {
-      if (mode !== "health") {
-        const formatCmd = config.format.replace(/\$1/g, file);
-        const result = await executeCommand(formatCmd);
-        const icon = result.success ? "✓" : "✗";
-
-        console.log(`${icon} [${config.lang}](format): ${formatCmd}`);
-
-        if (!result.success && result.stderr) {
-          console.error(result.stderr);
-        }
-      }
-    }
-  } else {
+  if (!config.formatScript) {
     if (mode === "health") {
-      console.warn("✗ NO FORMATTER DEFINED FOR", file);
+      console.warn(`✗ NO FORMATTER DEFINED FOR [${config.lang}]`, file);
     }
+    continue;
   }
 
-  // if (config.lint) {
-  //   const binary = config.lint.split(" ").at(0) || "";
-  //   const exists = await binaryExists(binary);
+  const existing = filesByScript.get(config.formatScript) || [];
+  existing.push(file);
+  filesByScript.set(config.formatScript, existing);
+}
 
-  //   if (!exists) {
-  //     if (mode === "health") {
-  //       console.warn(
-  //         `[${config.lang}] Binary '${binary}' not found for lint command`,
-  //       );
-  //     }
-  //   } else {
-  //     const lintCmd = config.lint.replace(/\$1/g, file);
-  //     console.log(`[${config.lang}] lint: ${lintCmd}`);
-  //   }
-  // } else {
-  //   if (mode === "health") {
-  //     console.warn("NO LINTER DEFINED FOR", file);
-  //   }
-  // }
+if (mode === "health") {
+  console.log("✓ All files have formatters configured");
+  process.exit(0);
+}
+
+// Run format commands batched by script
+for (const [script, scriptFiles] of filesByScript.entries()) {
+  const cmd = `bun run ${script} ${scriptFiles.join(" ")}`;
+  const result = await executeCommand(cmd);
+  const icon = result.success ? "✓" : "✗";
+
+  console.log(`${icon} [${script}]: ${scriptFiles.length} files`);
+
+  if (!result.success) {
+    if (result.stdout) {
+      console.error(result.stdout);
+    }
+    if (result.stderr) {
+      console.error(result.stderr);
+    }
+  }
 }

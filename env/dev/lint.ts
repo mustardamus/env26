@@ -3,7 +3,6 @@ import {
   getAllFiles,
   getChangedFiles,
   executeCommand,
-  binaryExists,
   getLanguageConfig,
 } from "./shared";
 
@@ -16,12 +15,15 @@ if (!["health", "changed", "all"].includes(mode)) {
 }
 
 const rootDir = join(import.meta.dirname, "../..");
-const ignorePatterns = [".opencode", "bun.lock", ".gitignore"];
+const ignorePatterns = [".opencode", "bun.lock", ".gitignore", "node_modules/"];
 
 const files =
   mode === "changed"
     ? await getChangedFiles(rootDir, ignorePatterns)
     : await getAllFiles(rootDir, ignorePatterns);
+
+// Group files by lint script
+const filesByScript = new Map<string, string[]>();
 
 for (const file of files) {
   const config = getLanguageConfig(file);
@@ -33,40 +35,37 @@ for (const file of files) {
     continue;
   }
 
-  if (config.lint) {
-    const binary = config.lint.split(" ").at(0) || "";
-    const exists = await binaryExists(binary);
-
-    if (!exists) {
-      if (mode === "health") {
-        console.warn(
-          `[${config.lang}] Binary '${binary}' not found for lint command`,
-        );
-      }
-    } else {
-      if (mode !== "health") {
-        const lintCmd = config.lint.replace(/\$1/g, file);
-        const result = await executeCommand(lintCmd);
-        const icon = result.success ? "✓" : "✗";
-
-        console.log(`${icon} [${config.lang}](lint): ${lintCmd}`);
-
-        if (!result.success) {
-          if (result.stdout) {
-            console.error(result.stdout);
-          }
-
-          if (result.stderr) {
-            console.error(result.stderr);
-          }
-        }
-      }
-    }
-  } else {
+  if (!config.lintScript) {
     if (mode === "health") {
-      console.warn("✗ NO LINTER DEFINED FOR", file);
+      console.warn(`✗ NO LINTER DEFINED FOR [${config.lang}]`, file);
     }
+    continue;
   }
 
-  console.log("\n");
+  const existing = filesByScript.get(config.lintScript) || [];
+  existing.push(file);
+  filesByScript.set(config.lintScript, existing);
+}
+
+if (mode === "health") {
+  console.log("✓ All lintable files have linters configured");
+  process.exit(0);
+}
+
+// Run lint commands batched by script
+for (const [script, scriptFiles] of filesByScript.entries()) {
+  const cmd = `bun run ${script} ${scriptFiles.join(" ")}`;
+  const result = await executeCommand(cmd);
+  const icon = result.success ? "✓" : "✗";
+
+  console.log(`${icon} [${script}]: ${scriptFiles.length} files`);
+
+  if (!result.success) {
+    if (result.stdout) {
+      console.error(result.stdout);
+    }
+    if (result.stderr) {
+      console.error(result.stderr);
+    }
+  }
 }

@@ -1,86 +1,85 @@
 export interface LanguageConfig {
   lang: string;
   ext: string[];
-  format?: string;
-  lint?: string;
+  formatScript?: string; // npm script name
+  lintScript?: string; // npm script name
 }
 
 const languageConfigs: LanguageConfig[] = [
   {
     lang: "typescript",
     ext: [".ts", ".tsx"],
-    format: "prettier --write $1",
-    lint: "~/.local/share/mise/installs/npm-eslint/latest/bin/eslint $1 && tsc --noEmit --skipLibCheck --module esnext --target esnext --lib esnext,dom --moduleResolution bundler --downlevelIteration $1",
+    formatScript: "format:ts",
+    lintScript: "lint:ts",
   },
   {
     lang: "javascript",
     ext: [".js", ".jsx", ".mjs", ".cjs"],
-    format: "prettier --write $1",
-    lint: "~/.local/share/mise/installs/npm-eslint/latest/bin/eslint $1",
+    formatScript: "format:js",
+    lintScript: "lint:js",
   },
   {
     lang: "astro",
     ext: [".astro"],
-    format:
-      "prettier --write --plugin ~/.local/share/mise/installs/npm-prettier-plugin-astro/latest/lib/node_modules/prettier-plugin-astro/dist/index.js $1",
-    lint: "~/.local/share/mise/installs/npm-eslint/latest/bin/eslint $1",
+    formatScript: "format:astro",
+    lintScript: "lint:astro",
   },
   {
     lang: "json",
     ext: [".json"],
-    format: "prettier --write $1",
-    lint: "~/.local/share/mise/installs/npm-eslint/latest/bin/eslint $1",
+    formatScript: "format:json",
+    lintScript: "lint:json",
   },
   {
     lang: "markdown",
     ext: [".md"],
-    format: "prettier --write $1",
-    lint: "markdownlint-cli2 $1",
+    formatScript: "format:md",
+    lintScript: "lint:md",
   },
   {
     lang: "yaml",
     ext: [".yaml", ".yml"],
-    format: "prettier --write $1",
-    lint: "yq eval $1",
+    formatScript: "format:yaml",
+    lintScript: "lint:yaml",
   },
   {
     lang: "toml",
     ext: [".toml"],
-    format: "taplo fmt $1",
-    lint: "taplo check $1",
+    formatScript: "format:toml",
+    lintScript: "lint:toml",
   },
   {
     lang: "css",
     ext: [".css"],
-    format: "prettier --write $1",
-    lint: "~/.local/share/mise/installs/npm-stylelint/latest/bin/stylelint $1",
+    formatScript: "format:css",
+    lintScript: "lint:css",
   },
   {
     lang: "html",
     ext: [".html"],
-    format: "prettier --write $1",
-    lint: "~/.local/share/mise/installs/npm-html-validate/latest/bin/html-validate $1",
+    formatScript: "format:html",
+    lintScript: "lint:html",
   },
   {
     lang: "bash",
     ext: [".sh", ".bash"],
-    format: "shfmt -w $1",
-    lint: "shellcheck $1",
+    formatScript: "format:bash",
+    lintScript: "lint:bash",
   },
   {
     lang: "fish",
     ext: [".fish"],
-    format: "fish_indent --write $1",
+    formatScript: "format:fish",
   },
   {
     lang: "dockerfile",
     ext: [".dockerfile", ".containerfile"],
-    format: "dockerfmt --write $1",
+    formatScript: "format:dockerfile",
   },
   {
     lang: "caddyfile",
     ext: ["Caddyfile"],
-    lint: "caddy validate --config $1",
+    lintScript: "lint:caddyfile",
   },
   {
     lang: "kdl",

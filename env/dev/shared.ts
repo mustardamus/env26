@@ -36,11 +36,6 @@ export async function executeCommand(command: string): Promise<CommandResult> {
   }
 }
 
-export async function binaryExists(binary: string): Promise<boolean> {
-  const result = await executeCommand(`which ${binary}`);
-  return result.success;
-}
-
 export function getLanguageConfig(filePath: string): LanguageConfig | null {
   const basename = filePath.split("/").pop() || "";
   const ext = basename.includes(".")
