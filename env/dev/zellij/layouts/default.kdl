@@ -3,8 +3,8 @@ layout {
     //       so have the scratch terminal on each tab seperately
 
     tab name="1:Edit" hide_floating_panes=true {
-        pane command="hx" {
-            args "."
+        pane command="fish" {
+            args "-c" "hx ."
         }
         pane size=1 borderless=true {
             plugin location="tab-bar"
@@ -21,7 +21,9 @@ layout {
     }
 
     tab name="2:Assist" hide_floating_panes=true {
-        pane command="opencode"
+        pane command="fish" {
+            args "-c" "opencode"
+        }
         pane size=1 borderless=true {
             plugin location="tab-bar"
         }
@@ -37,7 +39,9 @@ layout {
     }
 
     tab name="3:Git" hide_floating_panes=true {
-        pane command="lazygit"
+        pane command="fish" {
+            args "-c" "lazygit"
+        }
         pane size=1 borderless=true {
             plugin location="tab-bar"
         }
@@ -71,8 +75,8 @@ layout {
     }
 
     tab name="5:Test|Unit" hide_floating_panes=true {
-        pane command="bun" {
-            args "run" "test:unit:watch"
+        pane command="fish" {
+            args "-c" "bun run test:unit:watch"
         }
         pane size=1 borderless=true {
             plugin location="tab-bar"
@@ -89,8 +93,8 @@ layout {
     }
 
     tab name="6:Test|E2E" hide_floating_panes=true {
-        pane command="bun" {
-            args "run" "test:e2e:watch"
+        pane command="fish" {
+            args "-c" "bun run test:e2e:watch"
         }
         pane size=1 borderless=true {
             plugin location="tab-bar"
@@ -139,7 +143,9 @@ layout {
     }
 
     tab name="9:Mailhog" hide_floating_panes=true {
-        pane command="mailhog"
+        pane command="fish" {
+            args "-c" "mailhog"
+        }
         pane size=1 borderless=true {
             plugin location="tab-bar"
         }
@@ -155,8 +161,8 @@ layout {
     }
 
     tab name="10:Astro" hide_floating_panes=true {
-        pane command="bun" {
-            args "run" "dev"
+        pane command="fish" {
+            args "-c" "bun run dev"
         }
         pane size=1 borderless=true {
             plugin location="tab-bar"
@@ -173,7 +179,7 @@ layout {
     }
 
     tab name="11:Pocketbase" hide_floating_panes=true {
-        pane command="bash" {
+        pane command="fish" {
             args "-c" "pocketbase serve --dir=$HOME/app/pb_data --hooksDir=$HOME/app/pb_hooks --migrationsDir=$HOME/app/pb_migrations --dev=true"
         }
         pane size=1 borderless=true {
@@ -191,7 +197,7 @@ layout {
     }
 
     tab name="12:Caddy" hide_floating_panes=true {
-        pane command="bash" {
+        pane command="fish" {
             args "-c" "caddy run -c $HOME/app/env/dev/Caddyfile"
         }
         pane size=1 borderless=true {
