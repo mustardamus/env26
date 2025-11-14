@@ -3,6 +3,7 @@ import tsPlugin from "@typescript-eslint/eslint-plugin";
 import astroPlugin from "eslint-plugin-astro";
 import jsoncPlugin from "eslint-plugin-jsonc";
 import jsxA11yPlugin from "eslint-plugin-jsx-a11y";
+import globals from "globals";
 
 export default [
   {
@@ -13,6 +14,10 @@ export default [
     languageOptions: {
       ecmaVersion: "latest",
       sourceType: "module",
+      globals: {
+        ...globals.browser,
+        ...globals.node,
+      },
     },
     rules: {
       "no-unused-vars": "warn",
@@ -26,6 +31,10 @@ export default [
       parserOptions: {
         ecmaVersion: "latest",
         sourceType: "module",
+      },
+      globals: {
+        ...globals.browser,
+        ...globals.node,
       },
     },
     plugins: {
