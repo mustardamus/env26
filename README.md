@@ -145,28 +145,7 @@ make lint_all         # Lint all files in the project
 
 ### Linter Plugin Management
 
-Linter plugins (ESLint, Stylelint) are installed globally via mise and symlinked
-into the project's `node_modules/` directory. This approach:
-
-- Uses global installations managed by mise
-- Avoids polluting `package.json` with linter dependencies
-- Automatically creates symlinks on container startup
-
-Symlinks are created automatically by
-[setup-symlinks.sh](env/dev/setup-symlinks.sh) when running `make` (dev
-environment startup). The script creates symlinks for:
-
-- `@typescript-eslint/parser` & `@typescript-eslint/eslint-plugin`
-- `eslint-plugin-astro`
-- `eslint-plugin-jsonc`
-- `eslint-plugin-jsx-a11y`
-- `stylelint`
-
-To manually recreate symlinks (if needed):
-
-```bash
-bash env/dev/setup-symlinks.sh
-```
+Linter plugins (ESLint, Stylelint) are installed globally via mise.
 
 ### AI Assistant
 
