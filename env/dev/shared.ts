@@ -1,6 +1,5 @@
-import { readdir, readFile, stat } from "node:fs/promises";
+import { readdir, readFile } from "node:fs/promises";
 import { join } from "node:path";
-import languageConfigs, { type LanguageConfig } from "./langs";
 
 export interface CommandResult {
   success: boolean;
@@ -34,15 +33,6 @@ export async function executeCommand(command: string): Promise<CommandResult> {
       exitCode: 1,
     };
   }
-}
-
-export function getLanguageConfig(filePath: string): LanguageConfig | null {
-  const basename = filePath.split("/").pop() || "";
-  const ext = basename.includes(".")
-    ? `.${basename.split(".").pop()}`
-    : basename;
-
-  return languageConfigs.find((config) => config.ext.includes(ext)) ?? null;
 }
 
 function matchesPattern(filePath: string, pattern: string): boolean {
