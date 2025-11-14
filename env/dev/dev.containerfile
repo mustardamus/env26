@@ -24,6 +24,7 @@ RUN apt-get update \
         fish \
         tzdata \
         chromium \
+        tini \
     && rm -rf /var/lib/apt/lists/*
 
 RUN ln -snf /usr/share/zoneinfo/$TIMEZONE /etc/localtime \
@@ -98,4 +99,5 @@ RUN mise use --global jq \
     && rm /tmp/pocketbase.zip \
     && mv /tmp/pocketbase $HOME/.local/bin/
 
+ENTRYPOINT ["/usr/bin/tini", "--"]
 CMD ["tail", "-f", "/dev/null"]
