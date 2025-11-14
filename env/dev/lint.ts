@@ -1,71 +1,56 @@
 import { join } from "node:path";
-import {
-  getAllFiles,
-  getChangedFiles,
-  executeCommand,
-  getLanguageConfig,
-} from "./shared";
+import { getAllFiles, getChangedFiles, executeCommand } from "./shared";
 
-const mode = Bun.argv[2] || "health";
+const mode = Bun.argv[2] || "";
 
-if (!["health", "changed", "all"].includes(mode)) {
+if (!["changed", "all"].includes(mode)) {
   console.error(`Invalid mode: ${mode}`);
-  console.error("Usage: bun run lint.ts [health|changed|all]");
+  console.error("Usage: bun format.ts [changed|all]");
   process.exit(1);
 }
 
 const rootDir = join(import.meta.dirname, "../..");
-const ignorePatterns = [".opencode", "bun.lock", ".gitignore", "node_modules/"];
-
+const ignorePatterns = [".opencode", "bun.lock", ".gitignore"];
 const files =
   mode === "changed"
     ? await getChangedFiles(rootDir, ignorePatterns)
     : await getAllFiles(rootDir, ignorePatterns);
 
-// Group files by lint script
-const filesByScript = new Map<string, string[]>();
+for (const filePath of files) {
+  const ext = filePath.split(".").at(-1) || "";
+  let cmd = "";
 
-for (const file of files) {
-  const config = getLanguageConfig(file);
-
-  if (!config) {
-    if (mode === "health") {
-      console.warn("✗ NO CONFIG FOUND FOR", file);
-    }
+  if (["js", "cjs", "mjs", "jsx", "ts", "tsx", "json", "astro"].includes(ext)) {
+    cmd = `bunx eslint --fix ${filePath}`;
+  } else if (ext === "css") {
+    cmd = `bunx stylelint --fix ${filePath}`;
+  } else if (ext === "html") {
+    cmd = `bunx html-validate ${filePath}`;
+  } else if (ext === "md") {
+    cmd = `bunx markdownlint-cli2 --fix ${filePath}`;
+  } else if (["yml", "yaml"].includes(ext)) {
+    cmd = `yq ${filePath}`;
+  } else if (ext === "sh") {
+    cmd = `shellcheck ${filePath}`;
+  } else if (ext === "toml") {
+    cmd = `taplo lint ${filePath}`;
+  } else if (ext === "Caddyfile") {
+    cmd = `caddy validate --config ${filePath}`;
+  } else {
+    console.warn(`? No linter for ${filePath}`);
     continue;
   }
 
-  if (!config.lintScript) {
-    if (mode === "health") {
-      console.warn(`✗ NO LINTER DEFINED FOR [${config.lang}]`, file);
-    }
-    continue;
-  }
+  if (cmd) {
+    const res = await executeCommand(cmd);
 
-  const existing = filesByScript.get(config.lintScript) || [];
-  existing.push(file);
-  filesByScript.set(config.lintScript, existing);
-}
-
-if (mode === "health") {
-  console.log("✓ All lintable files have linters configured");
-  process.exit(0);
-}
-
-// Run lint commands batched by script
-for (const [script, scriptFiles] of filesByScript.entries()) {
-  const cmd = `bun run ${script} ${scriptFiles.join(" ")}`;
-  const result = await executeCommand(cmd);
-  const icon = result.success ? "✓" : "✗";
-
-  console.log(`${icon} [${script}]: ${scriptFiles.length} files`);
-
-  if (!result.success) {
-    if (result.stdout) {
-      console.error(result.stdout);
-    }
-    if (result.stderr) {
-      console.error(result.stderr);
+    if (res.success) {
+      console.log(`✓ ${cmd}`);
+      console.log(res.stdout);
+    } else {
+      console.error(`✗ ${cmd}`);
+      console.error(res.stderr);
+      console.error(res.stdout);
     }
   }
 }

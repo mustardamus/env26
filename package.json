@@ -11,19 +11,7 @@
     "test:unit": "vitest run",
     "test:unit:watch": "vitest",
     "test:e2e": "playwright test",
-    "test:e2e:watch": "PWTEST_WATCH=1 playwright test",
-    "prettier": "prettier",
-    "lint:ts": "eslint",
-    "lint:js": "eslint",
-    "lint:astro": "eslint",
-    "lint:json": "eslint",
-    "lint:md": "markdownlint-cli2",
-    "lint:yaml": "yq eval",
-    "lint:toml": "taplo check",
-    "lint:css": "stylelint",
-    "lint:html": "html-validate",
-    "lint:bash": "shellcheck",
-    "lint:caddyfile": "caddy validate --config"
+    "test:e2e:watch": "PWTEST_WATCH=1 playwright test"
   },
   "dependencies": {
     "@tailwindcss/vite": "4.1.16",

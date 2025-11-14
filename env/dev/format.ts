@@ -1,16 +1,11 @@
 import { join } from "node:path";
-import {
-  getAllFiles,
-  getChangedFiles,
-  executeCommand,
-  getLanguageConfig,
-} from "./shared";
+import { getAllFiles, getChangedFiles, executeCommand } from "./shared";
 
-const mode = Bun.argv[2] || "health";
+const mode = Bun.argv[2] || "";
 
 if (!["changed", "all"].includes(mode)) {
   console.error(`Invalid mode: ${mode}`);
-  console.error("Usage: bun format.ts [changed|all]");
+  console.error("Usage: bun lint.ts [changed|all]");
   process.exit(1);
 }
 
@@ -46,9 +41,9 @@ for (const filePath of files) {
       "html",
     ].includes(ext)
   ) {
-    cmd = `bun run prettier -- --write ${filePath}`;
+    cmd = `bunx prettier --write ${filePath}`;
   } else if (ext === "astro") {
-    cmd = `bun run prettier -- --write --plugin prettier-plugin-astro ${filePath}`;
+    cmd = `bunx prettier --write --plugin prettier-plugin-astro ${filePath}`;
   } else if (ext === "sh") {
     cmd = `shfmt -w ${filePath}`;
   } else if (ext === "toml") {
