@@ -10,7 +10,13 @@ if (!["changed", "all"].includes(mode)) {
 }
 
 const rootDir = join(import.meta.dirname, "../..");
-const ignorePatterns = [".opencode", "bun.lock", ".gitignore", "*.svg"];
+const ignorePatterns = [
+  ".opencode",
+  "bun.lock",
+  ".gitignore",
+  "*.svg",
+  "*.kdl",
+];
 const files =
   mode === "changed"
     ? await getChangedFiles(rootDir, ignorePatterns)
@@ -40,12 +46,18 @@ for (const filePath of files) {
     cmd = `bunx markdownlint-cli2 --fix ${filePath}`;
   } else if (ext === "sh") {
     cmd = `shellcheck ${filePath}`;
+  } else if (ext === "fish") {
+    cmd = `fish --no-execute ${filePath}`;
   } else if (ext === "toml") {
     cmd = `taplo lint ${filePath}`;
   } else if (ext === "Caddyfile") {
     cmd = `caddy validate --config ${filePath}`;
   } else if (ext === "Makefile") {
     cmd = `checkmake ${filePath}`;
+  } else if (
+    ["containerfile", "dockerfile", "Containerfile", "Dockerfile"].includes(ext)
+  ) {
+    cmd = `hadolint ${filePath}`;
   } else {
     console.warn(`? No linter for ${filePath}`);
     continue;
