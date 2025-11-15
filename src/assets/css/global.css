@@ -1,1 +1,5 @@
-@import "tailwindcss";
+@import "../assets/css/reset.css";
+
+h1 {
+  font-size: 4em;
+}
