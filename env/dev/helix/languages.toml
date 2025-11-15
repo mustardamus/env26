@@ -146,3 +146,9 @@ tailwindCSS.lint.invalidScreen = "error"
 tailwindCSS.lint.invalidTailwindDirective = "error"
 tailwindCSS.lint.invalidVariant = "error"
 tailwindCSS.lint.recommendedVariantOrder = "warning"
+
+[[language]]
+name = "kdl"
+language-servers = ["scls"]
+formatter = { command = "kdlfmt", args = ["format", "--stdin"] }
+auto-format = true

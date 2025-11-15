@@ -15,6 +15,8 @@ const ignorePatterns = [
   ".opencode/package.json",
   "bun.lock",
   ".gitignore",
+  "*.svg",
+  "Makefile",
 ];
 
 const files =
@@ -23,8 +25,12 @@ const files =
     : await getAllFiles(rootDir, ignorePatterns);
 
 for (const filePath of files) {
-  const ext = filePath.split(".").at(-1) || "";
+  let ext = filePath.split(".").at(-1) || "";
   let cmd = "";
+
+  if (ext === filePath) {
+    ext = filePath.split("/").at(-1) || "";
+  }
 
   if (
     [
@@ -52,6 +58,10 @@ for (const filePath of files) {
     cmd = `fish_indent --write ${filePath}`;
   } else if (ext === "containerfile") {
     cmd = `dockerfmt --write ${filePath}`;
+  } else if (ext === "Caddyfile") {
+    cmd = `caddy fmt --overwrite --config ${filePath}`;
+  } else if (ext === "kdl") {
+    cmd = `kdlfmt format ${filePath}`;
   } else {
     console.warn(`? No formatter for ${filePath}`);
     continue;

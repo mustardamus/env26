@@ -64,7 +64,8 @@ RUN mise use --global \
     npm:@tailwindcss/language-server \
     go \
     go:github.com/reteps/dockerfmt@latest \
-    rust
+    rust \
+    cargo:kdlfmt
 RUN fish -c "cargo install --locked --git https://github.com/estin/simple-completion-language-server.git"
 
 RUN mise use --global \

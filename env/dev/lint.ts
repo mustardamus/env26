@@ -10,15 +10,19 @@ if (!["changed", "all"].includes(mode)) {
 }
 
 const rootDir = join(import.meta.dirname, "../..");
-const ignorePatterns = [".opencode", "bun.lock", ".gitignore"];
+const ignorePatterns = [".opencode", "bun.lock", ".gitignore", "*.svg"];
 const files =
   mode === "changed"
     ? await getChangedFiles(rootDir, ignorePatterns)
     : await getAllFiles(rootDir, ignorePatterns);
 
 for (const filePath of files) {
-  const ext = filePath.split(".").at(-1) || "";
+  let ext = filePath.split(".").at(-1) || "";
   let cmd = "";
+
+  if (ext === filePath) {
+    ext = filePath.split("/").at(-1) || "";
+  }
 
   if (
     ["js", "cjs", "mjs", "jsx", "ts", "tsx", "json", "yml", "yaml"].includes(
