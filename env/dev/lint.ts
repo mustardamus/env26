@@ -21,58 +21,70 @@ const files =
   mode === "changed"
     ? await getChangedFiles(rootDir, ignorePatterns)
     : await getAllFiles(rootDir, ignorePatterns);
+const commands = [];
 
 for (const filePath of files) {
   let ext = filePath.split(".").at(-1) || "";
-  let cmd = "";
 
   if (ext === filePath) {
     ext = filePath.split("/").at(-1) || "";
   }
 
   if (
-    ["js", "cjs", "mjs", "jsx", "ts", "tsx", "json", "yml", "yaml"].includes(
-      ext,
-    )
+    [
+      "js",
+      "cjs",
+      "mjs",
+      "jsx",
+      "ts",
+      "tsx",
+      "json",
+      "yml",
+      "yaml",
+      "astro",
+    ].includes(ext)
   ) {
-    cmd = `bunx eslint --fix ${filePath}`;
-  } else if (ext === "astro") {
-    cmd = `bunx eslint --fix ${filePath} && bunx astro check ${filePath}`;
+    commands.push(`bunx eslint --fix ${filePath}`);
   } else if (ext === "css") {
-    cmd = `bunx stylelint --fix ${filePath}`;
+    commands.push(`bunx stylelint --fix ${filePath}`);
   } else if (ext === "html") {
-    cmd = `bunx html-validate ${filePath}`;
+    commands.push(`bunx html-validate ${filePath}`);
   } else if (ext === "md") {
-    cmd = `bunx markdownlint-cli2 --fix ${filePath}`;
+    commands.push(`bunx markdownlint-cli2 --fix ${filePath}`);
   } else if (ext === "sh") {
-    cmd = `shellcheck ${filePath}`;
+    commands.push(`shellcheck ${filePath}`);
   } else if (ext === "fish") {
-    cmd = `fish --no-execute ${filePath}`;
+    commands.push(`fish --no-execute ${filePath}`);
   } else if (ext === "toml") {
-    cmd = `taplo lint ${filePath}`;
+    commands.push(`taplo lint ${filePath}`);
   } else if (ext === "Caddyfile") {
-    cmd = `caddy validate --config ${filePath}`;
+    commands.push(`caddy validate --config ${filePath}`);
   } else if (ext === "Makefile") {
-    cmd = `checkmake ${filePath}`;
+    commands.push(`checkmake ${filePath}`);
   } else if (
     ["containerfile", "dockerfile", "Containerfile", "Dockerfile"].includes(ext)
   ) {
-    cmd = `hadolint ${filePath}`;
+    commands.push(`hadolint ${filePath}`);
   } else {
     console.warn(`? No linter for ${filePath}`);
     continue;
   }
+}
 
-  if (cmd) {
-    const res = await executeCommand(cmd);
+// `astro check` dont work on specific files, just project wide
+if (files.find((p) => p.endsWith(".astro"))) {
+  commands.push("bunx astro check");
+}
 
-    if (res.success) {
-      console.log(`✓ ${cmd}`);
-      console.log(res.stdout);
-    } else {
-      console.error(`✗ ${cmd}`);
-      console.error(res.stderr);
-      console.error(res.stdout);
-    }
+for (const cmd of commands) {
+  const res = await executeCommand(cmd);
+
+  if (res.success) {
+    console.log(`✓ ${cmd}`);
+    console.log(res.stdout);
+  } else {
+    console.error(`✗ ${cmd}`);
+    console.error(res.stderr);
+    console.error(res.stdout);
   }
 }

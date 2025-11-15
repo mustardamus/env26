@@ -92,7 +92,7 @@ are managed through [package.json](package.json).
 | [KDL](https://kdl.dev/)                                               | -                                                                                                                                                                  | -                                                                                                                                                                                                                                                         | [kdlfmt](https://github.com/kdl-org/kdlfmt)                                                                    |
 | [Makefile](https://www.gnu.org/software/make/)                        | -                                                                                                                                                                  | [checkmake](https://github.com/mrtazz/checkmake)                                                                                                                                                                                                          | -                                                                                                              |
 
-**Note**: All languages also have
+**Note**: All LSPs also have
 [simple-completion-language-server](https://github.com/estin/simple-completion-language-server)
 enabled for additional completions and snippets.
 
