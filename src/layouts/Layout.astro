@@ -18,11 +18,17 @@ const { title } = Astro.props;
     <title>{title} - ENV26</title>
   </head>
 
-  <body>
-    <nav>main nav bro</nav>
+  <body data-sidebar="closed">
+    <nav id="top-nav">
+      <button data-sidebar-state="open">Toggle Sidebar</button> main nav bro
+    </nav>
 
     <div id="layout">
-      <aside>Sidebar via slot</aside>
+      <aside>
+        <button data-sidebar-state="closed">Toggle Sidebar</button>
+        <p>Sidebar via slot</p>
+      </aside>
+      <div id="sidebar-bg" data-sidebar-state="closed"></div>
 
       <main>
         <slot />
@@ -32,3 +38,16 @@ const { title } = Astro.props;
     <footer>(c)2005</footer>
   </body>
 </html>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    for (const el of document.querySelectorAll("[data-sidebar-state]")) {
+      el.addEventListener("click", (e: Event) => {
+        e.preventDefault();
+        document.body.dataset.sidebar = (
+          e.target as HTMLElement
+        ).dataset.sidebarState;
+      });
+    }
+  });
+</script>
