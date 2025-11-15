@@ -5,7 +5,7 @@ const mode = Bun.argv[2] || "";
 
 if (!["changed", "all"].includes(mode)) {
   console.error(`Invalid mode: ${mode}`);
-  console.error("Usage: bun format.ts [changed|all]");
+  console.error("Usage: bun lint.ts [changed|all]");
   process.exit(1);
 }
 

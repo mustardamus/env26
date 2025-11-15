@@ -1,5 +1,12 @@
-.PHONY: default help dev_build dev_reset dev format format_all lint lint_all prod_build prod deploy
+.PHONY: default help all clean test dev_build dev_reset dev format format_all lint lint_all prod_build prod deploy
 .DEFAULT_GOAL := dev
+
+all: dev ## Default target - runs dev environment
+
+clean: dev_reset ## Clean development environment
+
+test: ## Run tests
+	@bun test
 
 help: ## Show this help screen
 	@echo "Available commands:"
