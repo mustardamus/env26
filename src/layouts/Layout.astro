@@ -19,6 +19,16 @@ const { title } = Astro.props;
   </head>
 
   <body>
-    <slot />
+    <nav>main nav bro</nav>
+
+    <div id="layout">
+      <aside>Sidebar via slot</aside>
+
+      <main>
+        <slot />
+      </main>
+    </div>
+
+    <footer>(c)2005</footer>
   </body>
 </html>

@@ -1,11 +1,45 @@
 @import "./reset.css";
 
-h1 {
-  font-size: 4em;
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+
+  > nav {
+    flex-shrink: 0;
+  }
+
+  > #layout {
+    display: flex;
+    flex-direction: row;
+    flex: 1;
+    overflow: hidden;
+
+    > aside {
+      width: 250px;
+      flex-shrink: 0;
+      overflow-y: auto;
+    }
+
+    > main {
+      flex: 1;
+      overflow-y: auto;
+    }
+  }
+
+  > footer {
+    flex-shrink: 0;
+  }
 }
 
-body {
-  h1 {
-    color: red;
+#layout {
+  > aside {
+    background-color: #444444;
+  }
+}
+
+@media (max-width: 768px) {
+  #layout > aside {
+    display: none;
   }
 }
