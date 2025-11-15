@@ -1,5 +1,11 @@
-@import "../assets/css/reset.css";
+@import "./reset.css";
 
 h1 {
   font-size: 4em;
+}
+
+body {
+  h1 {
+    color: red;
+  }
 }
