@@ -83,7 +83,8 @@ RUN mise use --global \
     caddy
 
 RUN mise use --global \
-    shellcheck
+    shellcheck \
+    checkmake
 
 RUN mise use --global go \
     && mise install go \

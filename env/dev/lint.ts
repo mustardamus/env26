@@ -44,6 +44,8 @@ for (const filePath of files) {
     cmd = `taplo lint ${filePath}`;
   } else if (ext === "Caddyfile") {
     cmd = `caddy validate --config ${filePath}`;
+  } else if (ext === "Makefile") {
+    cmd = `checkmake ${filePath}`;
   } else {
     console.warn(`? No linter for ${filePath}`);
     continue;
