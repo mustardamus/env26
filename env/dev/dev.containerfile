@@ -84,7 +84,8 @@ RUN mise use --global \
 
 RUN mise use --global \
     shellcheck \
-    checkmake
+    checkmake \
+    hadolint
 
 RUN mise use --global go \
     && mise install go \
