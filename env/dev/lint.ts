@@ -20,16 +20,20 @@ for (const filePath of files) {
   const ext = filePath.split(".").at(-1) || "";
   let cmd = "";
 
-  if (["js", "cjs", "mjs", "jsx", "ts", "tsx", "json", "astro"].includes(ext)) {
+  if (
+    ["js", "cjs", "mjs", "jsx", "ts", "tsx", "json", "yml", "yaml"].includes(
+      ext,
+    )
+  ) {
     cmd = `bunx eslint --fix ${filePath}`;
+  } else if (ext === "astro") {
+    cmd = `bunx eslint --fix ${filePath} && bunx astro check ${filePath}`;
   } else if (ext === "css") {
     cmd = `bunx stylelint --fix ${filePath}`;
   } else if (ext === "html") {
     cmd = `bunx html-validate ${filePath}`;
   } else if (ext === "md") {
     cmd = `bunx markdownlint-cli2 --fix ${filePath}`;
-  } else if (["yml", "yaml"].includes(ext)) {
-    cmd = `yq ${filePath}`;
   } else if (ext === "sh") {
     cmd = `shellcheck ${filePath}`;
   } else if (ext === "toml") {

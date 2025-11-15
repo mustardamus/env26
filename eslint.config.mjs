@@ -3,6 +3,7 @@ import tsPlugin from "@typescript-eslint/eslint-plugin";
 import astroPlugin from "eslint-plugin-astro";
 import jsoncPlugin from "eslint-plugin-jsonc";
 import jsxA11yPlugin from "eslint-plugin-jsx-a11y";
+import ymlPlugin from "eslint-plugin-yml";
 import globals from "globals";
 
 export default [
@@ -47,6 +48,18 @@ export default [
   },
   ...astroPlugin.configs.recommended,
   ...jsoncPlugin.configs["flat/recommended-with-json"],
+  ...ymlPlugin.configs["flat/recommended"],
+  ...ymlPlugin.configs["flat/prettier"],
+  {
+    files: ["**/*.{yaml,yml}"],
+    rules: {
+      "yml/no-empty-mapping-value": "error",
+      "yml/no-irregular-whitespace": "error",
+      "yml/plain-scalar": "off",
+      "yml/quotes": ["error", { prefer: "double", avoidEscape: true }],
+      "yml/sort-keys": "off",
+    },
+  },
   {
     files: ["**/*.{js,jsx,ts,tsx,astro}"],
     plugins: {
