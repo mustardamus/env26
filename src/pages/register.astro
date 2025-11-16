@@ -1,0 +1,92 @@
+---
+import { ClientResponseError } from "pocketbase";
+import Layout from "../layouts/Layout.astro";
+
+let errors: Record<string, string> = { general: "", email: "", password: "" };
+
+try {
+  if (Astro.request.method === "POST") {
+    const { pb } = Astro.locals;
+    const data = await Astro.request.formData();
+    const email = data.get("email");
+    const password = data.get("password");
+    const passwordConfirm = data.get("passwordConfirm");
+
+    await pb.collection("users").create({
+      email,
+      password,
+      passwordConfirm,
+    });
+    // 			await pb.collection("users").requestVerification(data.email);
+    //	await pb.collection("users").authWithPassword(data.email, data.password);
+  }
+} catch (err) {
+  if (err instanceof ClientResponseError) {
+    const keyNames = Object.keys(err.data.data || {});
+
+    if (keyNames.length) {
+      for (const keyName of keyNames) {
+        errors[keyName] = err.data.data[keyName].message;
+      }
+    } else {
+      errors.general = err.response.message;
+    }
+  } else if (err instanceof Error) {
+    errors.general = err.message;
+  } else {
+    errors.general = "Unknown Error";
+  }
+}
+---
+
+<Layout title="Register">
+  <h1>Register</h1>
+
+  {errors.general && <div>{JSON.stringify(errors)}</div>}
+
+  <form method="POST">
+    <fieldset class={errors.email && "has-errors"}>
+      <label for="email">
+        E-Mail
+        <input
+          id="email"
+          name="email"
+          type="text"
+          required
+          value="test@example.com"
+        />
+      </label>
+      <output for="email">{errors.email}</output>
+    </fieldset>
+
+    <fieldset>
+      <label for="password">
+        Password
+        <input
+          id="password"
+          name="password"
+          type="password"
+          required
+          value="11111111"
+        />
+      </label>
+    </fieldset>
+
+    <fieldset>
+      <label for="passwordConfirm">
+        Password Confirm
+        <input
+          id="passwordConfirm"
+          name="passwordConfirm"
+          type="password"
+          required
+          value="11111111"
+        />
+      </label>
+    </fieldset>
+
+    <fieldset>
+      <button type="submit">Register</button>
+    </fieldset>
+  </form>
+</Layout>

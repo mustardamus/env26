@@ -14,7 +14,9 @@
     "test:e2e:watch": "PWTEST_WATCH=1 playwright test"
   },
   "dependencies": {
-    "astro": "5.15.3"
+    "@astrojs/node": "9.5.0",
+    "astro": "5.15.3",
+    "pocketbase": "0.26.3"
   },
   "devDependencies": {
     "@astrojs/check": "0.9.5",
