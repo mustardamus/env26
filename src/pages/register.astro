@@ -1,8 +1,9 @@
 ---
 import { ClientResponseError } from "pocketbase";
-import Layout from "../layouts/Layout.astro";
+import Layout from "@/layouts/Layout.astro";
+import Input from "@/components/ui/Input.astro";
 
-let errors: Record<string, string> = { general: "", email: "", password: "" };
+const errors: Record<string, string> = { general: "", email: "", password: "" };
 
 try {
   if (Astro.request.method === "POST") {
@@ -45,19 +46,13 @@ try {
   {errors.general && <div>{JSON.stringify(errors)}</div>}
 
   <form method="POST">
-    <fieldset class={errors.email && "has-errors"}>
-      <label for="email">
-        E-Mail
-        <input
-          id="email"
-          name="email"
-          type="text"
-          required
-          value="test@example.com"
-        />
-      </label>
-      <output for="email">{errors.email}</output>
-    </fieldset>
+    <Input
+      type="email"
+      label="E-Mail"
+      name="email"
+      value="test@example.com"
+      errorMessage={errors.email}
+    />
 
     <fieldset>
       <label for="password">

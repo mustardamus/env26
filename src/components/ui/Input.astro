@@ -1,0 +1,36 @@
+---
+interface Props {
+  type: "text" | "email";
+  label: string;
+  name: string;
+  value?: string;
+  errorMessage?: string;
+}
+
+const { type = "text", label, name, value, errorMessage } = Astro.props;
+---
+
+<fieldset class={errorMessage && "has-error"}>
+  <label for={name}>
+    <span>{label}</span>
+    <input id={name} name={name} type={type} required value={value} />
+  </label>
+
+  <output for={name}>
+    {errorMessage}
+  </output>
+</fieldset>
+
+<style>
+  output {
+    display: none;
+  }
+
+  .has-error {
+    border: 1px solid red;
+
+    output {
+      display: block;
+    }
+  }
+</style>
