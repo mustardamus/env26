@@ -1,6 +1,6 @@
 ---
 interface Props {
-  type: "text" | "email";
+  type: "text" | "email" | "password";
   label: string;
   name: string;
   value?: string;
@@ -20,17 +20,3 @@ const { type = "text", label, name, value, errorMessage } = Astro.props;
     {errorMessage}
   </output>
 </fieldset>
-
-<style>
-  output {
-    display: none;
-  }
-
-  .has-error {
-    border: 1px solid red;
-
-    output {
-      display: block;
-    }
-  }
-</style>

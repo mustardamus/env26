@@ -1,0 +1,8 @@
+:root {
+  color-scheme: light dark;
+}
+
+html,
+body {
+  background-color: light-dark(white, #666);
+}

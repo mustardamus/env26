@@ -1,5 +1,5 @@
 ---
-import "@/assets/css/global.css";
+import "@/styles/global.css";
 
 interface Props {
   title: string;
@@ -28,7 +28,6 @@ const { title } = Astro.props;
         <button data-sidebar-state="closed">Toggle Sidebar</button>
         <p>Sidebar via slot</p>
       </aside>
-      <div id="sidebar-bg" data-sidebar-state="closed"></div>
 
       <main>
         <slot />
@@ -49,5 +48,19 @@ const { title } = Astro.props;
         ).dataset.sidebarState;
       });
     }
+
+    // Handle clicks on the overlay (body::after) to close sidebar
+    document.body.addEventListener("click", (e: Event) => {
+      const target = e.target as HTMLElement;
+
+      // Only close if clicking directly on body (the overlay)
+      // and sidebar is open and not clicking on sidebar or its children
+      if (
+        target === document.body &&
+        document.body.dataset.sidebar === "open"
+      ) {
+        document.body.dataset.sidebar = "closed";
+      }
+    });
   });
 </script>
