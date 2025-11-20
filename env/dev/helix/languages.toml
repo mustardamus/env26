@@ -122,7 +122,12 @@ injection-regex = "astro"
 file-types = ["astro"]
 # NOTE: snippets work better when scls is second lsp, not first
 language-servers = ["astro-ls", "scls", "tailwindcss-ls"]
-formatter = { command = "prettier", args = ["--stdin-filepath", "file.astro"] }
+formatter = { command = "prettier", args = [
+  "--stdin-filepath",
+  "file.astro",
+  "--plugin",
+  "prettier-plugin-astro",
+] }
 auto-format = true
 
 [language-server.tailwindcss-ls]
