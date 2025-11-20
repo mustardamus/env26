@@ -1,0 +1,28 @@
+<aside id="sidebar">
+  <button data-sidebar-toggle>Toggle Sidebar</button>
+  <p>Sidebar via slot</p>
+</aside>
+
+<script>
+  import { toggleSidebar, state } from "@/lib/store.ts";
+
+  document.addEventListener("DOMContentLoaded", () => {
+    for (const el of document.querySelectorAll("[data-sidebar-toggle]")) {
+      el.addEventListener("click", (evt: Event) => {
+        evt.preventDefault();
+        toggleSidebar();
+      });
+    }
+  });
+
+  document.body.addEventListener("click", (e: Event) => {
+    if (e.target === document.body && state.isSidebarOpen) {
+      toggleSidebar();
+    }
+  });
+
+  globalThis.addEventListener("state:set:isSidebarOpen", (evt: Event) => {
+    const { value } = (evt as CustomEvent).detail;
+    document.body.dataset.isSidebarOpen = value;
+  });
+</script>

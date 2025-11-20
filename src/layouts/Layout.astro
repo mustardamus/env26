@@ -1,4 +1,5 @@
 ---
+import Sidebar from "@/components/Sidebar.astro";
 import "@/styles/global.css";
 
 interface Props {
@@ -18,49 +19,18 @@ const { title } = Astro.props;
     <title>{title} - ENV26</title>
   </head>
 
-  <body data-sidebar="closed">
+  <body data-is-sidebar-open="false">
     <nav id="top-nav">
-      <button data-sidebar-state="open">Toggle Sidebar</button> main nav bro
+      <button data-sidebar-toggle>Toggle Sidebar</button> main nav bro
     </nav>
 
     <div id="layout">
-      <aside>
-        <button data-sidebar-state="closed">Toggle Sidebar</button>
-        <p>Sidebar via slot</p>
-      </aside>
-
-      <main>
+      <Sidebar />
+      <main id="content">
         <slot />
       </main>
     </div>
 
-    <footer>(c)2005</footer>
+    <footer id="footer">(c)2005</footer>
   </body>
 </html>
-
-<script>
-  document.addEventListener("DOMContentLoaded", () => {
-    for (const el of document.querySelectorAll("[data-sidebar-state]")) {
-      el.addEventListener("click", (e: Event) => {
-        e.preventDefault();
-        document.body.dataset.sidebar = (
-          e.target as HTMLElement
-        ).dataset.sidebarState;
-      });
-    }
-
-    // Handle clicks on the overlay (body::after) to close sidebar
-    document.body.addEventListener("click", (e: Event) => {
-      const target = e.target as HTMLElement;
-
-      // Only close if clicking directly on body (the overlay)
-      // and sidebar is open and not clicking on sidebar or its children
-      if (
-        target === document.body &&
-        document.body.dataset.sidebar === "open"
-      ) {
-        document.body.dataset.sidebar = "closed";
-      }
-    });
-  });
-</script>

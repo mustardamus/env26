@@ -1,11 +1,9 @@
-@import "./reset.css";
-
 body {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
 
-  > nav {
+  > #top-nav {
     flex-shrink: 0;
   }
 
@@ -15,30 +13,25 @@ body {
     flex: 1;
     overflow: hidden;
 
-    > aside {
+    > #sidebar {
       width: 250px;
       flex-shrink: 0;
       overflow-y: auto;
     }
 
-    > main {
+    > #content {
       flex: 1;
       overflow-y: auto;
     }
   }
 
-  > footer {
+  > #footer {
     flex-shrink: 0;
   }
 
-  [data-sidebar-state] {
+  /* toggle buttons in top nav and sidebar */
+  [data-sidebar-toggle] {
     display: none;
-  }
-}
-
-#layout {
-  > aside {
-    background-color: #444444;
   }
 }
 
@@ -46,39 +39,41 @@ body {
   body {
     position: relative;
 
-    [data-sidebar-state] {
+    [data-sidebar-toggle] {
       display: inline-block;
+    }
+
+    /* Add the overlay using ::after */
+    &::after {
+      content: "";
+      display: block;
+      opacity: 0;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100vh;
+      background: rgba(0, 0, 0, 0.9);
+      z-index: 999;
+      pointer-events: none;
+      transition: all 0.15s ease-in-out;
+      cursor: pointer;
     }
   }
 
-  body[data-sidebar="open"] {
-    #layout > aside {
+  body[data-is-sidebar-open="true"] {
+    #sidebar {
       left: 0px;
       opacity: 1;
     }
 
-    #sidebar-bg {
+    &::after {
       opacity: 1;
       pointer-events: all;
     }
   }
 
-  #sidebar-bg {
-    display: block;
-    opacity: 0;
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100vh;
-    background: rgba(0, 0, 0, 0.9);
-    z-index: 999;
-    pointer-events: none;
-    transition: all 0.15s ease-in-out;
-    cursor: pointer;
-  }
-
-  #layout > aside {
+  #sidebar {
     display: block;
     position: absolute;
     top: 0;
