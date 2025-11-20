@@ -1,6 +1,6 @@
 form {
   border-radius: 5px;
-  background: light-dark(white, black);
+  background: var(--bg-color-alt);
 
   fieldset {
     padding: 1.3rem;
@@ -10,27 +10,41 @@ form {
 
       span {
         display: block;
+        cursor: pointer;
       }
 
       input {
         display: block;
+        transition: all 0.2s ease-in-out;
+        outline: 2px solid var(--bg-color);
         border-radius: 3px;
-        background: white;
+        background: var(--input-bg);
         padding: 0.8rem;
         width: 100%;
-        color: black;
+        color: var(--input-color);
+
+        &:focus {
+          outline: 2px solid var(--color-accent);
+          box-shadow: 0 0 2px rgba(0, 0, 0, 0.8);
+          background: var(--input-bg-focus);
+        }
+      }
+
+      output {
+        display: none;
       }
     }
 
-    button {
-      display: block;
-      cursor: pointer;
-      border-radius: 3px;
-      background-color: light-dark(black, white);
-      padding: 1rem;
-      width: 100%;
-      color: light-dark(white, black);
-      text-align: center;
+    &.has-error {
+      input {
+        outline: 2px solid var(--color-error);
+      }
+
+      output {
+        display: block;
+        padding: 5px 5px 0 5px;
+        color: var(--color-error);
+      }
     }
   }
 }
