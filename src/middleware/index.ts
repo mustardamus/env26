@@ -24,6 +24,18 @@ export const onRequest = defineMiddleware(
     const url = new URL(request.url);
     const isPublicRoute = PUBLIC_ROUTES.includes(url.pathname);
 
+    if (url.pathname === "/logout") {
+      const response = redirect("/");
+
+      locals.pb.authStore.clear();
+      response.headers.append(
+        "set-cookie",
+        locals.pb.authStore.exportToCookie(),
+      );
+
+      return response;
+    }
+
     if (!isPublicRoute && !isAuthenticated) {
       return redirect("/login");
     }
