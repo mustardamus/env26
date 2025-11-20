@@ -3,6 +3,7 @@ import { errorToFlatObject } from "@/lib/errors.ts";
 import Layout from "@/layouts/Layout.astro";
 import Input from "@/components/ui/Input.astro";
 
+let email = "";
 let errors: Record<string, string> = {
   general: "",
   email: "",
@@ -14,9 +15,9 @@ try {
   if (Astro.request.method === "POST") {
     const { pb } = Astro.locals;
     const data = await Astro.request.formData();
-    const email = data.get("email") as string;
     const password = data.get("password") as string;
     const passwordConfirm = data.get("passwordConfirm");
+    email = data.get("email") as string;
 
     await pb.collection("users").create({ email, password, passwordConfirm });
     await pb.collection("users").requestVerification(email);
@@ -38,7 +39,10 @@ try {
         type="email"
         label="E-Mail"
         name="email"
-        value="test@example.com"
+        value={email}
+        placeholder="you@example.com"
+        autocomplete="email"
+        required
         errorMessage={errors.email}
       />
 
@@ -46,15 +50,19 @@ try {
         type="password"
         label="Password"
         name="password"
-        value="11111111"
-        errorMessage={errors.pasword}
+        placeholder="Create a password"
+        autocomplete="new-password"
+        required
+        errorMessage={errors.password}
       />
 
       <Input
         type="password"
         label="Password Confirmation"
         name="passwordConfirm"
-        value="11111111"
+        placeholder="Confirm your password"
+        autocomplete="new-password"
+        required
         errorMessage={errors.passwordConfirm}
       />
 

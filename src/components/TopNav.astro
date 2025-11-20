@@ -1,0 +1,25 @@
+---
+const currentUser = Astro.locals.currentUser;
+---
+
+<nav id="top-nav">
+  <button data-sidebar-toggle>Toggle Sidebar</button>
+
+  {
+    !currentUser && (
+      <ul>
+        <a href="/register">Register</a>
+        <a href="/login">Login</a>
+      </ul>
+    )
+  }
+
+  {
+    currentUser && (
+      <ul>
+        <a href="/dashboard">Dashboard</a>
+        <a href="/logout">Logout</a>
+      </ul>
+    )
+  }
+</nav>

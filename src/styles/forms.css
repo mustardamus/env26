@@ -15,18 +15,38 @@ form {
 
       input {
         display: block;
-        transition: all 0.2s ease-in-out;
+        transition:
+          outline-color 0.2s ease,
+          background-color 0.2s ease,
+          box-shadow 0.2s ease;
         outline: 2px solid var(--bg-color);
+        border: none;
         border-radius: 3px;
         background: var(--input-bg);
         padding: 0.8rem;
         width: 100%;
         color: var(--input-color);
 
+        &::placeholder {
+          opacity: 1;
+          color: var(--input-placeholder);
+        }
+
+        &:hover:not(:disabled):not(:focus) {
+          outline-color: var(--color-accent-muted, #555);
+        }
+
         &:focus {
           outline: 2px solid var(--color-accent);
           box-shadow: 0 0 2px rgba(0, 0, 0, 0.8);
           background: var(--input-bg-focus);
+        }
+
+        &:disabled {
+          opacity: 0.7;
+          cursor: not-allowed;
+          background: var(--bg-color-disabled, #e0e0e0);
+          color: var(--text-color-disabled, #666);
         }
       }
 
