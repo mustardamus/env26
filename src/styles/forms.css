@@ -1,8 +1,36 @@
-:root {
-  color-scheme: light dark;
-}
+form {
+  border-radius: 5px;
+  background: light-dark(white, black);
 
-html,
-body {
-  background-color: light-dark(white, #666);
+  fieldset {
+    padding: 1.3rem;
+
+    label {
+      display: block;
+
+      span {
+        display: block;
+      }
+
+      input {
+        display: block;
+        border-radius: 3px;
+        background: white;
+        padding: 0.8rem;
+        width: 100%;
+        color: black;
+      }
+    }
+
+    button {
+      display: block;
+      cursor: pointer;
+      border-radius: 3px;
+      background-color: light-dark(black, white);
+      padding: 1rem;
+      width: 100%;
+      color: light-dark(white, black);
+      text-align: center;
+    }
+  }
 }

@@ -45,11 +45,10 @@ for (const filePath of files) {
       "yaml",
       "css",
       "html",
+      "astro",
     ].includes(ext)
   ) {
     cmd = `bunx prettier --write ${filePath}`;
-  } else if (ext === "astro") {
-    cmd = `bunx prettier --write --plugin prettier-plugin-astro ${filePath}`;
   } else if (ext === "sh") {
     cmd = `shfmt -w ${filePath}`;
   } else if (ext === "toml") {
