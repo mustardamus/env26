@@ -40,3 +40,47 @@ HTML/CSS/JS.**
   semantic HTML, accessibility rules enforced
 - **CSS**: Custom CSS (no frameworks), imports in global.css, stylelint enforced
   for validity
+
+## State Management
+
+The app uses a lightweight reactive store (`src/lib/store.ts`) built with native
+JavaScript Proxy - no external dependencies.
+
+### Usage
+
+```typescript
+import { state, toggleSidebar } from "@/lib/store";
+
+// Read state
+console.log(state.isSidebarOpen);
+
+// Write state (automatically triggers events)
+state.isSidebarOpen = true;
+
+// Use helper functions
+toggleSidebar();
+```
+
+### Listening to State Changes
+
+The store dispatches custom events on `globalThis` when state changes:
+
+```typescript
+// Listen to all state changes
+globalThis.addEventListener("state:set", (e: CustomEvent) => {
+  const { property, value, oldValue } = e.detail;
+  console.log(`${property} changed from ${oldValue} to ${value}`);
+});
+
+// Listen to specific property changes
+globalThis.addEventListener("state:set:isSidebarOpen", (e: CustomEvent) => {
+  const { value } = e.detail;
+  console.log(`Sidebar is now ${value ? "open" : "closed"}`);
+});
+```
+
+### Adding New State
+
+1. Add the property to the `State` type
+2. Set initial value in `stateSource`
+3. Optionally add helper functions (like `toggleSidebar`)
