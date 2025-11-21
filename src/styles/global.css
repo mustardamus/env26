@@ -1,3 +1,20 @@
 @import "node_modules/@lowlighter/matcha/dist/matcha.css";
 @import "./vars.css";
 @import "./layout.css";
+
+form {
+  label {
+    width: 100%;
+  }
+
+  input:focus {
+    outline: none;
+    border: 1px solid var(--accent);
+  }
+
+  .has-error {
+    input {
+      border: 1px solid var(--danger);
+    }
+  }
+}
