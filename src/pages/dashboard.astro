@@ -5,5 +5,7 @@ const currentUser = Astro.locals.currentUser;
 ---
 
 <Layout title="Dashboard">
-  <h1>{currentUser?.email}</h1>
+  <section>
+    <h1>{currentUser?.email}</h1>
+  </section>
 </Layout>

@@ -22,10 +22,14 @@ const currentUser = Astro.locals.currentUser;
 
   {
     currentUser && (
-      <ul>
-        <a href="/dashboard">Dashboard</a>
-        <a href="/logout">Logout</a>
-      </ul>
+      <>
+        <li>
+          <a href="/dashboard">Dashboard</a>
+        </li>
+        <li>
+          <a href="/logout">Logout</a>
+        </li>
+      </>
     )
   }
 </menu>

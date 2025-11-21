@@ -31,7 +31,9 @@ try {
 ---
 
 <Layout title="Register">
-  <h1>Register</h1>
+  <section>
+    <h1>Register</h1>
+  </section>
 
   <section>
     <form method="POST">
@@ -68,6 +70,12 @@ try {
 
       <section>
         <button type="submit">Register</button>
+
+        {
+          errors.general && (
+            <div class="flash danger centered">{errors.general}</div>
+          )
+        }
       </section>
     </form>
   </section>

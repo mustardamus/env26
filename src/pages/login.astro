@@ -26,12 +26,12 @@ try {
 ---
 
 <Layout title="Login">
-  <h1>Login</h1>
+  <section>
+    <h1>Login</h1>
+  </section>
 
   <section>
     <form method="POST">
-      {errors.general && <p class="error">{errors.general}</p>}
-
       <Input
         type="email"
         label="E-Mail"
@@ -55,6 +55,12 @@ try {
       <section>
         <button type="submit">Login</button>
       </section>
+
+      {
+        errors.general && (
+          <div class="flash danger centered">{errors.general}</div>
+        )
+      }
     </form>
   </section>
 </Layout>
