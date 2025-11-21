@@ -86,13 +86,13 @@ const resolvedInputMode = inputmode ?? inputModeMap[type];
       aria-invalid={!!errorMessage}
       aria-errormessage={errorMessage ? errorId : undefined}
     />
-  </label>
 
-  {
-    errorMessage && (
-      <div id={errorId} class="danger">
-        {errorMessage}
-      </div>
-    )
-  }
+    {
+      errorMessage && (
+        <div id={errorId} class="danger">
+          {errorMessage}
+        </div>
+      )
+    }
+  </label>
 </section>
