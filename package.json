@@ -15,6 +15,7 @@
   },
   "dependencies": {
     "@astrojs/node": "9.5.0",
+    "@lowlighter/matcha": "3.0.1",
     "astro": "5.15.3",
     "pocketbase": "0.26.3"
   },

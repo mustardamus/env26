@@ -1,37 +1,74 @@
-:root {
-  color-scheme: light dark;
+:root,
+:host {
+  /* Font */
+  --ft:
+    -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans", Helvetica,
+    Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+  --ft-mono:
+    ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas, Liberation Mono,
+    monospace;
+  --ft-size: 18px;
 
-  --bg-color: #ffffff;
-  --bg-color-alt: #e2e2e2;
-  --fg-color: black;
+  /* Layouts */
+  --ly-header-size: 3.5rem;
+  --ly-aside-size-small: 2.5rem;
+  --ly-brand: #e6edf3;
+  --ly-bg-brand: #010409;
 
-  --color-accent: yellow;
-  --color-error: red;
+  /* Colors */
+  --light-default: #1f2328;
+  --light-subtle: #1f2328;
+  --light-contrast: #e6edf3;
+  --light-muted: #656d76;
+  --light-accent: #0969da;
+  --light-active: #8250df;
+  --light-variant: #bf3989;
+  --light-success: #1a7f37;
+  --light-attention: #9a6700;
+  --light-severe: #bc4c00;
+  --light-danger: #d1242f;
+  --dark-default: #e6edf3;
+  --dark-subtle: #e6edf3;
+  --dark-contrast: #1f2328;
+  --dark-muted: #848d97;
+  --dark-accent: #4493f8;
+  --dark-active: #a371f7;
+  --dark-variant: #db61a2;
+  --dark-success: #3fb950;
+  --dark-attention: #d29922;
+  --dark-severe: #db6d28;
+  --dark-danger: #f85149;
 
-  --input-bg: rgba(0, 0, 0, 0.1);
-  --input-bg-focus: rgba(0, 0, 0, 0.05);
-  --input-placeholder: #888888;
-  --input-color: #111111;
+  /* Backgrounds */
+  --light-bg-default: #ffffff;
+  --light-bg-subtle: #d0d7de;
+  --light-bg-contrast: #24292f;
+  --light-bg-muted: #f6f8fa;
+  --light-bg-accent: #ddf4ff;
+  --light-bg-active: #fbefff;
+  --light-bg-variant: #ffeff7;
+  --light-bg-success: #dafbe1;
+  --light-bg-attention: #fff8c5;
+  --light-bg-severe: #fff1e5;
+  --light-bg-danger: #ffebe9;
+  --dark-bg-default: #0d1117;
+  --dark-bg-subtle: #30363d;
+  --dark-bg-contrast: #6e7681;
+  --dark-bg-muted: #161b22;
+  --dark-bg-accent: #121d2f;
+  --dark-bg-active: #231f39;
+  --dark-bg-variant: #221926;
+  --dark-bg-success: #12261e;
+  --dark-bg-attention: #272115;
+  --dark-bg-severe: #221a19;
+  --dark-bg-danger: #25171c;
 
-  --button-bg: var(--color-accent);
-  --button-color: var(--fg-color);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --bg-color: #111111;
-    --bg-color-alt: #333333;
-    --fg-color: white;
-
-    --color-accent: yellow;
-    --color-error: red;
-
-    --input-bg: rgba(255, 255, 255, 0.1);
-    --input-bg-focus: rgba(255, 255, 255, 0.2);
-    --input-placeholder: #999999;
-    --input-color: white;
-
-    --button-bg: var(--color-accent);
-    --button-color: var(--bg-color);
-  }
+  /* Miscellaneous */
+  --light-backdrop: #8c959f33;
+  --light-bd-muted: #d0d7deb3;
+  --dark-bd-muted: #30363db3;
+  --dark-backdrop: #161b2266;
+  --bd-radius: 6px;
+  --tr-duration: 0.2s;
+  --ct-width: 1024px;
 }

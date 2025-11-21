@@ -120,6 +120,7 @@ name = "astro"
 scope = "source.astro"
 injection-regex = "astro"
 file-types = ["astro"]
+comment-token = "//"
 # NOTE: snippets work better when scls is second lsp, not first
 language-servers = ["astro-ls", "scls", "tailwindcss-ls"]
 formatter = { command = "prettier", args = [
