@@ -3,8 +3,14 @@
 @import "./layout.css";
 
 form {
+  overflow: hidden;
+
   label {
     width: 100%;
+
+    span {
+      padding-left: 3px;
+    }
   }
 
   input:focus {
@@ -16,5 +22,9 @@ form {
     input {
       border: 1px solid var(--danger);
     }
+  }
+
+  button[type="submit"] {
+    width: 100%;
   }
 }
