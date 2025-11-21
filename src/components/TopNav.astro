@@ -2,15 +2,21 @@
 const currentUser = Astro.locals.currentUser;
 ---
 
-<nav id="top-nav">
-  <button data-sidebar-toggle>Toggle Sidebar</button>
+<menu id="top-nav">
+  <li data-sidebar-toggle>
+    <button>Toggle Sidebar</button>
+  </li>
 
   {
     !currentUser && (
-      <ul>
-        <a href="/register">Register</a>
-        <a href="/login">Login</a>
-      </ul>
+      <>
+        <li>
+          <a href="/register">Register</a>
+        </li>
+        <li>
+          <a href="/login">Login</a>
+        </li>
+      </>
     )
   }
 
@@ -22,4 +28,27 @@ const currentUser = Astro.locals.currentUser;
       </ul>
     )
   }
-</nav>
+</menu>
+
+<style is:global>
+  #top-nav {
+    margin: 0;
+    padding: 0;
+
+    li {
+      margin: 0;
+      padding: 0;
+
+      a {
+        display: block;
+        transition: all 0.1s ease;
+        margin: 0;
+        padding: 10px 15px;
+
+        &:hover {
+          background: var(--accent);
+        }
+      }
+    }
+  }
+</style>
