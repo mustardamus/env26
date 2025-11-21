@@ -1,0 +1,57 @@
+---
+import { errorToFlatObject } from "@/lib/errors.ts";
+import Layout from "@/layouts/Layout.astro";
+import Input from "@/components/ui/Input.astro";
+
+const { pb, currentUser } = Astro.locals;
+let errors: Record<string, string> = {
+  general: "",
+  name: "",
+};
+let name = currentUser?.name as string;
+let wasSaved = false;
+
+try {
+  if (Astro.request.method === "POST") {
+    const data = await Astro.request.formData();
+    name = data.get("name") as string;
+
+    await pb.collection("users").update(currentUser?.id as string, { name });
+
+    wasSaved = true;
+  }
+} catch (err) {
+  errors = errorToFlatObject(err as Error);
+}
+---
+
+<Layout title="Settings - Profile">
+  <section>
+    <h1>Settings - Profile</h1>
+  </section>
+
+  <section>
+    <form method="POST">
+      <Input
+        type="text"
+        label="Name"
+        name="name"
+        value={name}
+        placeholder="Your Name"
+        errorMessage={errors.name}
+      />
+
+      <section>
+        <button type="submit">Save</button>
+
+        {
+          errors.general && (
+            <div class="flash danger centered">{errors.general}</div>
+          )
+        }
+
+        {wasSaved && <div class="flash success centered">Saved</div>}
+      </section>
+    </form>
+  </section>
+</Layout>
